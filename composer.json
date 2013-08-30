@@ -1,0 +1,14 @@
+{
+    "name": "phpjsonrpc",
+    "description": "json rpc server ZF2",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "json-rpc",
+        "zf2"
+    ],
+    "homepage": "http://framework.zend.com/",
+    "require": {
+        "php": ">=5.3.6",
+        "zendframework/zendframework": "2.2.*"
+    }
+}
