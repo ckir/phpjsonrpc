@@ -28,7 +28,7 @@ class Misc {
 			$second = \Local\Text\CommonWords\CommonWords::removeCommonWords ( $second );
 		}
 		if ($stemming === true) {
-			$stemmer = new \Local\Text\Stemmer\Stemmer ();
+			$stemmer = new \Local\Text\Stemmer\PorterStemmer ();
 			$first = $stemmer->getStemmed ( $first );
 			$first = implode(" ", $first);
 			$second = $stemmer->getStemmed ( $second );
@@ -56,7 +56,7 @@ class Misc {
 	public function getMetaphone($strings, $commonwords = false, $stemming = false) {
 		$response = array();
 		if ($stemming === true) {
-			$stemmer = new \Local\Text\Stemmer\Stemmer ();
+			$stemmer = new \Local\Text\Stemmer\PorterStemmer();
 		}
 		for($i = 0; $i < count ( $strings ); $i ++) {
 			if ($commonwords === true) {

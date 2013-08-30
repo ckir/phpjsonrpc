@@ -1,5 +1,14 @@
 <?php
 require_once 'startup.php';
+$stemmer = new apiv1();
+$a = $stemmer->getStemmed("antonis samaras", true);
+// $logger = new Zend\Log\Logger;
+// $writer = new Zend\Log\Writer\Stream('log.txt');
+
+// $logger->addWriter($writer);
+
+// Zend\Log\Logger::registerErrorHandler($logger);
+// Zend\Log\Logger::registerExceptionHandler($logger);
 
 class apiv1 {
 	
@@ -19,7 +28,7 @@ class apiv1 {
 	 */
 	public function getStemmed($words, $commonwords = false) {
 		try {
-			$stemmer = new Local\Text\Stemmer\Stemmer ();
+			$stemmer = new Local\Text\Stemmer\PorterStemmer ();
 			return $stemmer->getStemmed ( $words, $commonwords );
 		} catch ( Exception $e ) {
 			throw new \Zend\Json\Server\Exception\InvalidArgumentException ( 'Service unavailable', \Zend\Json\Server\Error::ERROR_INTERNAL );

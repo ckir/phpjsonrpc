@@ -1,6 +1,9 @@
 <?php
 require_once 'startup.php';
+
 use Zend\Json\Server\Client;
+
+//
 function get_base_path() {
 	$s = empty ( $_SERVER ["HTTPS"] ) ? '' : ($_SERVER ["HTTPS"] == "on") ? "s" : "";
 	$protocol = substr ( strtolower ( $_SERVER ["SERVER_PROTOCOL"] ), 0, strpos ( strtolower ( $_SERVER ["SERVER_PROTOCOL"] ), "/" ) ) . $s;

@@ -7,7 +7,7 @@ namespace Local\Text\Stemmer;
  * @author user
  *        
  */
-class Stemmer {
+class PorterStemmer {
 	
 	/**
 	 * Takes a list of words and returns them reduced to their stems.
@@ -36,6 +36,7 @@ class Stemmer {
 				$words = preg_replace('/\s{2,}/', ' ', $words);
 			}
 		}
+
 		require_once 'Stemmer.php';
 		$stemmer = new \Stemmer ();
 		return $stemmer->stem_list ( $words );
