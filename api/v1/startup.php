@@ -6,12 +6,15 @@ set_time_limit ( 0 );
 $APPLICATION_PATH = realpath ( dirname ( __FILE__ ) ) ;
 $VENDOR = realpath ( $APPLICATION_PATH . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'vendor' );
 $ZF2 = realpath ( $VENDOR . DIRECTORY_SEPARATOR . 'zendframework' . DIRECTORY_SEPARATOR . 'zendframework' . DIRECTORY_SEPARATOR . 'library' );
-$LIBS = realpath ( $APPLICATION_PATH . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'libs' );
-//$ZF2 = realpath ( $LIBS . DIRECTORY_SEPARATOR . 'zf2' . DIRECTORY_SEPARATOR . '2.2.2' . DIRECTORY_SEPARATOR . 'library' );
+$LIBS = realpath ( $APPLICATION_PATH . DIRECTORY_SEPARATOR . 'contrib' );
+$HTMLPURIFIER = realpath ( $LIBS . DIRECTORY_SEPARATOR . 'htmlpurifier' . DIRECTORY_SEPARATOR . '4.5.0' );
+
 $LOCAL = realpath ( $APPLICATION_PATH . DIRECTORY_SEPARATOR . 'library' );
 $INCLUDE_PATH = implode ( PATH_SEPARATOR, array (
-		$LIBS,
+		$VENDOR,
 		$ZF2,
+		$LIBS,
+		$HTMLPURIFIER,
 		$LOCAL,
 		get_include_path () 
 ) );
@@ -28,8 +31,9 @@ $loader->setOptions ( array (
 		'autoregister_zf' => true
 ) );
 
-$loader->registerNamespace('Local', $LOCAL);
 $loader->registerNamespace('Vendor', $VENDOR);
+$loader->registerNamespace('Local', $LOCAL . "/Local");
+
 
 $loader->register();
 

@@ -1,5 +1,6 @@
 <?php
 require_once 'startup.php';
+
 use Zend\Json\Server\Client;
 function get_base_path() {
 	$s = empty ( $_SERVER ["HTTPS"] ) ? '' : ($_SERVER ["HTTPS"] == "on") ? "s" : "";
