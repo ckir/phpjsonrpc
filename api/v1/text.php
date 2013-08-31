@@ -1,14 +1,5 @@
 <?php
 require_once 'startup.php';
-$stemmer = new apiv1();
-$a = $stemmer->getStemmed("antonis samaras", true);
-// $logger = new Zend\Log\Logger;
-// $writer = new Zend\Log\Writer\Stream('log.txt');
-
-// $logger->addWriter($writer);
-
-// Zend\Log\Logger::registerErrorHandler($logger);
-// Zend\Log\Logger::registerExceptionHandler($logger);
 
 class apiv1 {
 	

@@ -1,4 +1,5 @@
 <?php
+namespace Contrib\Nlp\Stemmers\gr\PorterStemmer;
  /**
     Greek porter stemmer for use with Zend Lucene Greek Stemmer
     requires PHP >5.0

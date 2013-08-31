@@ -20,11 +20,29 @@ $scriptUris = array (
 
 foreach ( $scriptUris as $scriptUri ) {
 	try {
+		echo "*****************************************" . PHP_EOL;
 		echo $scriptUri . PHP_EOL;
-		echo PHP_EOL . "Testing: getNamedays" . PHP_EOL;
+		echo "*****************************************" . PHP_EOL;
 		$client = new Client ( $scriptUri );
+		
+		echo PHP_EOL . "Testing: getNamedays" . PHP_EOL;
 		$response = $client->call ( "getNamedays" );
-		var_dump ( $response );
+		var_dump ( $response ) . PHP_EOL;
+		
+		echo PHP_EOL . "Testing: getPhoneInfo" . PHP_EOL;
+		$parameters = array (
+				"number" => 2109414074
+		);
+		$response = $client->call ( "getPhoneInfo", $parameters );
+		var_dump ( $response ) . PHP_EOL;
+		
+		echo PHP_EOL . "Testing: getStemmed" . PHP_EOL;
+		$parameters = array (
+				"words" => 'Σε ανακοίνωσή της η ΑΔΕΔΥ κατηγορεί την κυβέρνηση ότι, καθοδηγούμενη από την τρόικα, έχει στόχο «τη διάλυση των Δημοσίων Υπηρεσιών και των δομών του Κοινωνικού Κράτους»',
+				"commonwords" => true
+		);
+		$response = $client->call ( "getStemmed", $parameters );
+		var_dump ( $response ) . PHP_EOL;
 	} catch ( Exception $e ) {
 		echo $e->getMessage () . PHP_EOL;
 	}

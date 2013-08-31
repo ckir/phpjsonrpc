@@ -16,8 +16,8 @@ ob_end_flush ();
 echo '<pre>' . PHP_EOL;
 
 $scriptUris = array (
-		get_base_path () . "/" . "read.php"
-		//"http://phpjsonrpc.herokuapp.com/api/v1/read.php" 
+		get_base_path () . "/" . "read.php",
+		"http://phpjsonrpc.herokuapp.com/api/v1/read.php" 
 );
 
 foreach ( $scriptUris as $scriptUri ) {
