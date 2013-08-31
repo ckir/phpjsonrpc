@@ -10,19 +10,17 @@ $VENDOR = realpath ( $APPLICATION_PATH . DIRECTORY_SEPARATOR . '..' . DIRECTORY_
 $ZF2 = realpath ( $VENDOR . DIRECTORY_SEPARATOR . 'zendframework' . DIRECTORY_SEPARATOR . 'zendframework' . DIRECTORY_SEPARATOR . 'library' );
 
 // contrib folder is for third party libs not available for composer installation
-$LIBS = realpath ( $APPLICATION_PATH . DIRECTORY_SEPARATOR . 'contrib' );
+$LIBS = realpath ( $APPLICATION_PATH . DIRECTORY_SEPARATOR . 'Contrib' );
 $HTMLPURIFIER = realpath ( $LIBS . DIRECTORY_SEPARATOR . 'htmlpurifier' . DIRECTORY_SEPARATOR . '4.5.0' );
-$STEMMER = realpath ( $LIBS . DIRECTORY_SEPARATOR . 'Nlp' . DIRECTORY_SEPARATOR . 'Stemmers' . DIRECTORY_SEPARATOR . 'en' . DIRECTORY_SEPARATOR . 'Stemmer' );
 
 // library folder is for local to project classes
-$LOCAL = realpath ( $APPLICATION_PATH . DIRECTORY_SEPARATOR . 'library' );
+$LOCAL = realpath ( $APPLICATION_PATH . DIRECTORY_SEPARATOR . 'Local' );
 
 $INCLUDE_PATH = implode ( PATH_SEPARATOR, array (
 		$VENDOR,
 		$ZF2,
 		$LIBS,
 		$HTMLPURIFIER,
-		$STEMMER,
 		$LOCAL,
 		get_include_path () 
 ) );
@@ -41,7 +39,7 @@ $loader->setOptions ( array (
 
 $loader->registerNamespace('Vendor', $VENDOR);
 $loader->registerNamespace('Contrib', $LIBS);
-$loader->registerNamespace('Local', $LOCAL . "/Local");
+$loader->registerNamespace('Local', $LOCAL);
 
 $loader->register();
 

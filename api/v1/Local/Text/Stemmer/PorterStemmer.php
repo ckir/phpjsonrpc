@@ -37,8 +37,7 @@ class PorterStemmer {
 			}
 		}
 
-		require_once 'Stemmer.php';
-		$stemmer = new \Stemmer ();
+		$stemmer = new \Contrib\Nlp\Stemmers\en\Stemmer\Stemmer ();
 		return $stemmer->stem_list ( $words );
 	} // function getStemmed($words)
 	

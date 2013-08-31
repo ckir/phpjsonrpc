@@ -22,7 +22,9 @@ $scriptUris = array (
 
 foreach ( $scriptUris as $scriptUri ) {
 	try {
+		echo "*********************************************************" . PHP_EOL;
 		echo $scriptUri . PHP_EOL;
+		echo "*********************************************************" . PHP_EOL;
 		echo PHP_EOL . "Method: getFeed" . PHP_EOL;
 		$client = new Client ( $scriptUri );
 		$parameters = array (
