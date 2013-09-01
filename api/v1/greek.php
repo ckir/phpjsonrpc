@@ -1,5 +1,13 @@
 <?php
 require_once 'startup.php';
+//$namedays = new apiv1();
+//try {
+// 	$a = $namedays->getNamedays ();
+// } catch (Exception $e) {
+// 	$r = $e->getMessage();
+// }
+
+
 
 class apiv1 {
 	
@@ -10,7 +18,7 @@ class apiv1 {
 	 */
 	public function getNamedays() {
 		try {
-			$namedays = new Local\Greek\Namedays\Namedays ();
+			$namedays = new Local\Greek\Info\Namedays\Namedays ();
 			return $namedays->getNamedays ();
 		} catch ( Exception $e ) {
 			throw new \Zend\Json\Server\Exception\InvalidArgumentException ( 'Service unavailable', \Zend\Json\Server\Error::ERROR_INTERNAL );

@@ -31,7 +31,7 @@ foreach ( $scriptUris as $scriptUri ) {
 		
 		echo PHP_EOL . "Testing: getPhoneInfo" . PHP_EOL;
 		$parameters = array (
-				"number" => 2109414074
+				"number" => 2109588888
 		);
 		$response = $client->call ( "getPhoneInfo", $parameters );
 		var_dump ( $response ) . PHP_EOL;

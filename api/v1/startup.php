@@ -43,14 +43,6 @@ $loader->registerNamespace('Local', $LOCAL);
 
 $loader->register();
 
-$configreader = new Zend\Config\Reader\Ini();
-$configdata   = $configreader->fromFile(__DIR__ . '/config.ini');
-
-if (preg_match ( "/localhost/", $_SERVER ["SERVER_NAME"] )) {
-	define ( 'MODE', 'development' );
-} else {
-	define ( 'MODE', 'production' );
-}
 
 
 

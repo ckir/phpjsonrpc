@@ -33,6 +33,7 @@ class Reader {
 	/**
 	 *
 	 *
+	 *
 	 * Import a feed by providing a URI
 	 *
 	 * @param string $uri
@@ -68,10 +69,46 @@ class Reader {
 		
 		$feed = \Zend\Feed\Reader\Reader::import ( $uri );
 		
+		// Fix relative links
+		$feedhost = $feed->getLink ();
+		$feedhost = parse_url ( $feedhost, PHP_URL_HOST );
+		if (! $feedhost) {
+			$feedhost = parse_url ( $_POST ['feed'], PHP_URL_HOST );
+			$feedhost = explode ( ".", $feedhost );
+			$feedhost [0] = "www";
+			$feedhost = implode ( ".", $feedhost );
+		}
+		
+		$feeddata = $feed->saveXml ();
+
+		$doc = new \DOMDocument ( '1.0' );
+		$doc->formatOutput = true;
+		@$doc->loadXML ( $feeddata );
+		$xpath = new \DOMXpath ( $doc );
+		foreach ( $xpath->query ( '//link' ) as $node ) {
+			$link = $node->nodeValue;
+			$link = $this->unquote ( trim ( $link ), '""\'\'' );
+			$link = rawurldecode ( $link );
+			$link = html_entity_decode ( $link, ENT_QUOTES, "UTF-8" );
+			$link = htmlspecialchars_decode ( $link, ENT_QUOTES );
+			$link = filter_var ( $link, FILTER_SANITIZE_URL );
+			$linkhost = parse_url ( $link, PHP_URL_HOST );
+			$node->nodeValue = htmlentities ( $link );
+			if ($linkhost) {
+				continue;
+			}
+			$link = "http://" . $feedhost . $link;
+			$node->nodeValue = htmlentities ( $link );
+		}
+		
+		$newdata = $doc->saveXML ();
+		
 		// Return XML
 		if ($format === "xml") {
-			return $feed->saveXml ();
+			return $newdata;
 		}
+		
+		$feed = \Zend\Feed\Reader\Reader::importString ( $newdata );
 		
 		$data = array (
 				'id' => $feed->getId (),
@@ -177,6 +214,45 @@ class Reader {
 		
 		return $data;
 	} // function getFeed
+	
+	/**
+	 * Unquote a string and optionally return the quote removed.
+	 *
+	 * from http://razzed.com/2009/01/14/top-5-most-useful-non-native-php-functions/
+	 *
+	 * @param string $s
+	 *        	A string to unquote
+	 * @param string $quotes
+	 *        	A list of quote pairs to unquote
+	 * @param string $left_quote
+	 *        	Returns the quotes removed
+	 * @return Unquoted string, or same string if quotes not found
+	 */
+	private function unquote($s, $quotes = "''\"\"", &$left_quote = null) {
+		if (is_array ( $s )) {
+			$result = array ();
+			foreach ( $s as $k => $ss ) {
+				$result [$k] = $this->unquote ( $ss, $quotes, $left_quote );
+			}
+			return $result;
+		}
+		if (strlen ( $s ) < 2) {
+			$left_quote = false;
+			return $s;
+		}
+		$q = substr ( $s, 0, 1 );
+		$qleft = strpos ( $quotes, $q );
+		if ($qleft === false) {
+			$left_quote = false;
+			return $s;
+		}
+		$qright = $quotes {$qleft + 1};
+		if (substr ( $s, - 1 ) === $qright) {
+			$left_quote = $quotes {$qleft};
+			return substr ( $s, 1, - 1 );
+		}
+		return $s;
+	} // function unquote
 } // class Reader
 
 ?>

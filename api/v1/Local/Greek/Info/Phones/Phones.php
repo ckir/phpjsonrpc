@@ -11,12 +11,23 @@ class Phones {
 	
 	/**
 	 * Lookup for a phone number at "http://11888.ote.gr/web/guest/white-pages/search?who="
-	 * 
-	 * @param number $phone
-	 * @return multitype:unknown string Ambigous <string, mixed> multitype:unknown  |string
+	 *
+	 * @param number $phone        	
+	 * @return multitype:unknown string Ambigous <string, mixed> multitype:unknown |string
 	 */
 	public function lookup($phone) {
 		if (is_numeric ( $phone ) && strlen ( $phone ) == 10) {
+			
+
+			$cache = new \Local\Util\Cache\Cache ();
+			$cacheadapter = $cache->setParameters ();
+			if ($cacheadapter) {
+				$cachedinfo = $cache->getItem ( $phone );
+				if (! empty ( $cachedinfo )) {
+					return json_decode ( $cachedinfo, true );
+				}
+			}
+			
 			$fil = file_get_contents ( "http://11888.ote.gr/web/guest/white-pages/search?who=" . $phone );
 			$fil = mb_convert_encoding ( $fil, 'HTML-ENTITIES', "UTF-8" );
 			
@@ -56,7 +67,7 @@ class Phones {
 		}
 		
 		if (isset ( $v ) && (! empty ( $v ))) {
-			return array (
+			$response = array (
 					"phone" => $phone,
 					"name" => $v,
 					"raw" => $a,
@@ -66,6 +77,12 @@ class Phones {
 							"city" => $ct 
 					) 
 			);
+			
+			if ($cacheadapter) {
+				$cache->addItem ( $phone, json_encode ( $response ) );
+			}
+			
+			return $response;
 		} else {
 			return "Lookup Failed";
 		}
