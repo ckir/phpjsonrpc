@@ -13,44 +13,76 @@ function get_base_path() {
 
 ob_end_flush ();
 echo '<pre>' . PHP_EOL;
-$scriptUris = array (
-		get_base_path () . "/" . "greek.php",
-		"http://phpjsonrpc.herokuapp.com/api/v1/greek.php" 
-);
+if (preg_match ( "/localhost/", $_SERVER ["SERVER_NAME"] )) {
+	$mode = 'development';
+	$scriptUris = array (
+			get_base_path () . "/" . "greek.php",
+			"http://phpjsonrpc.herokuapp.com/api/v1/greek.php" 
+	);
+} else {
+	$mode = 'production';
+	$scriptUris = array (
+			"http://phpjsonrpc.herokuapp.com/api/v1/greek.php" 
+	);
+}
 
 foreach ( $scriptUris as $scriptUri ) {
 	try {
+		echo PHP_EOL . PHP_EOL;
 		echo "*****************************************" . PHP_EOL;
 		echo $scriptUri . PHP_EOL;
 		echo "*****************************************" . PHP_EOL;
 		$client = new Client ( $scriptUri );
 		
-		echo PHP_EOL . "Testing: getNamedays" . PHP_EOL;
-		$response = $client->call ( "getNamedays" );
-		var_dump ( $response ) . PHP_EOL;
+		try {
+			echo PHP_EOL . "Testing: getNamedays" . PHP_EOL;
+			$response = $client->call ( "getNamedays" );
+			echo $client->getLastRequest ()->toJson () . PHP_EOL;
+			var_dump ( $response ) . PHP_EOL . PHP_EOL;
+		} catch ( Exception $e ) {
+			echo $client->getLastRequest ()->toJson () . PHP_EOL;
+			echo $e->getMessage () . PHP_EOL;
+		}
 		
-		echo PHP_EOL . "Testing: getPhoneInfo" . PHP_EOL;
-		$parameters = array (
-				"number" => 2109588888
-		);
-		$response = $client->call ( "getPhoneInfo", $parameters );
-		var_dump ( $response ) . PHP_EOL;
+		try {
+			echo PHP_EOL . "Testing: getPhoneInfo" . PHP_EOL;
+			$parameters = array (
+					"number" => 2109588888 
+			);
+			$response = $client->call ( "getPhoneInfo", $parameters );
+			echo $client->getLastRequest ()->toJson () . PHP_EOL;
+			var_dump ( $response ) . PHP_EOL . PHP_EOL;
+		} catch ( Exception $e ) {
+			echo $client->getLastRequest ()->toJson () . PHP_EOL;
+			echo $e->getMessage () . PHP_EOL;
+		}
 		
-		echo PHP_EOL . "Testing: getStemmed" . PHP_EOL;
-		$parameters = array (
-				"words" => 'Σε ανακοίνωσή της η ΑΔΕΔΥ κατηγορεί την κυβέρνηση ότι, καθοδηγούμενη από την τρόικα, έχει στόχο «τη διάλυση των Δημοσίων Υπηρεσιών και των δομών του Κοινωνικού Κράτους»',
-				"commonwords" => true
-		);
-		$response = $client->call ( "getStemmed", $parameters );
-		var_dump ( $response ) . PHP_EOL;
+		try {
+			echo PHP_EOL . "Testing: getStemmed" . PHP_EOL;
+			$parameters = array (
+					"words" => 'Σε ανακοίνωσή της η ΑΔΕΔΥ κατηγορεί την κυβέρνηση ότι, καθοδηγούμενη από την τρόικα, έχει στόχο «τη διάλυση των Δημοσίων Υπηρεσιών και των δομών του Κοινωνικού Κράτους»',
+					"commonwords" => true 
+			);
+			$response = $client->call ( "getStemmed", $parameters );
+			echo $client->getLastRequest ()->toJson () . PHP_EOL;
+			var_dump ( $response ) . PHP_EOL . PHP_EOL;
+		} catch ( Exception $e ) {
+			echo $client->getLastRequest ()->toJson () . PHP_EOL;
+			echo $e->getMessage () . PHP_EOL;
+		}
 		
-		echo PHP_EOL . "Testing: getSlug" . PHP_EOL;
-		$parameters = array (
-				"string" => 'Σε ανακοίνωσή της η ΑΔΕΔΥ κατηγορεί την κυβέρνηση ότι, καθοδηγούμενη από την τρόικα, έχει στόχο «τη διάλυση των Δημοσίων Υπηρεσιών και των δομών του Κοινωνικού Κράτους»'
-		);
-		$response = $client->call ( "getSlug", $parameters );
-		var_dump ( $response );
-		
+		try {
+			echo PHP_EOL . "Testing: getSlug" . PHP_EOL;
+			$parameters = array (
+					"string" => 'Σε ανακοίνωσή της η ΑΔΕΔΥ κατηγορεί την κυβέρνηση ότι, καθοδηγούμενη από την τρόικα, έχει στόχο «τη διάλυση των Δημοσίων Υπηρεσιών και των δομών του Κοινωνικού Κράτους»' 
+			);
+			$response = $client->call ( "getSlug", $parameters );
+			echo $client->getLastRequest ()->toJson () . PHP_EOL;
+			var_dump ( $response ) . PHP_EOL . PHP_EOL;
+		} catch ( Exception $e ) {
+			echo $client->getLastRequest ()->toJson () . PHP_EOL;
+			echo $e->getMessage () . PHP_EOL;
+		}
 	} catch ( Exception $e ) {
 		echo $e->getMessage () . PHP_EOL;
 	}

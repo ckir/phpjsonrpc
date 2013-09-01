@@ -4,7 +4,8 @@ namespace Local\Greek\Info\Phones;
 
 /**
  *
- * @author user
+ * Lookup for a phone number at "http://11888.ote.gr/web/guest/white-pages/search?who="
+ * https://github.com/skmp/gigascraper/blob/master/lookup.php
  *        
  */
 class Phones {
