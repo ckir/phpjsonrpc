@@ -20,6 +20,7 @@ class Cache {
 		}
 		
 		switch ($adapter) {
+			
 			case 'apc' :
 				try {
 					$this->cache = new \Zend\Cache\Storage\Adapter\Apc ();
@@ -34,7 +35,21 @@ class Cache {
 				}
 
 				break;
-					
+
+				case 'memcached' :
+					try {
+						$this->cache = new \Zend\Cache\Storage\Adapter\Memcached();
+						$this->cache->getOptions ()->setTtl ( $ttl );
+							
+						$plugin = new \Zend\Cache\Storage\Plugin\ExceptionHandler ();
+						$plugin->getOptions ()->setThrowExceptions ( false );
+						$$this->cache->addPlugin ( $plugin );
+						return true;
+					} catch (\Exception $e) {
+						return false;
+					}
+				
+					break;
 			default :
 				try {
 					$this->cache = new \Zend\Cache\Storage\Adapter\Filesystem ();
