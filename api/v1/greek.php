@@ -1,13 +1,5 @@
 <?php
 require_once 'startup.php';
-//$namedays = new apiv1();
-//try {
-// 	$a = $namedays->getNamedays ();
-// } catch (Exception $e) {
-// 	$r = $e->getMessage();
-// }
-
-
 
 class apiv1 {
 	
@@ -67,6 +59,22 @@ class apiv1 {
 			throw new \Zend\Json\Server\Exception\InvalidArgumentException ( 'Service unavailable', \Zend\Json\Server\Error::ERROR_INTERNAL );
 		}
 	} // function getStemmed()
+	
+	/**
+	 * Generates a slug (pretty url) based on a string, which is typically a page/article title
+	 *
+	 * @param string $string
+	 * @return string the generated slug
+	 *
+	 */
+	public function getSlug($string) {
+		try {
+			$slug = new Local\Greek\Slugs\GreekSlugGenerator();
+			return $slug->get_slug($string);
+		} catch ( Exception $e ) {
+			throw new \Zend\Json\Server\Exception\InvalidArgumentException ( 'Service unavailable', \Zend\Json\Server\Error::ERROR_INTERNAL );
+		}
+	} // function getSlug()
 } // class apiv1
 
 $server = new Zend\Json\Server\Server ();

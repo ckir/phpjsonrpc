@@ -43,6 +43,14 @@ foreach ( $scriptUris as $scriptUri ) {
 		);
 		$response = $client->call ( "getStemmed", $parameters );
 		var_dump ( $response ) . PHP_EOL;
+		
+		echo PHP_EOL . "Testing: getSlug" . PHP_EOL;
+		$parameters = array (
+				"string" => 'Σε ανακοίνωσή της η ΑΔΕΔΥ κατηγορεί την κυβέρνηση ότι, καθοδηγούμενη από την τρόικα, έχει στόχο «τη διάλυση των Δημοσίων Υπηρεσιών και των δομών του Κοινωνικού Κράτους»'
+		);
+		$response = $client->call ( "getSlug", $parameters );
+		var_dump ( $response );
+		
 	} catch ( Exception $e ) {
 		echo $e->getMessage () . PHP_EOL;
 	}

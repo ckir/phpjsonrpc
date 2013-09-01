@@ -61,6 +61,7 @@ foreach ( $scriptUris as $scriptUri ) {
 		);
 		$response = $client->call ( "getMetaphone", $parameters );
 		var_dump ( $response );
+		
 	} catch ( Exception $e ) {
 		echo $e->getMessage () . PHP_EOL;
 	}
