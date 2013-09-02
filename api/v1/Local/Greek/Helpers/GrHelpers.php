@@ -8,7 +8,15 @@ namespace Local\Greek\Helpers;
  *        
  */
 class GrHelpers {
-	
+	/**
+	 * Make a greek/english string uppercase.
+	 *
+	 * @param string $string
+	 *        	The string being converted.
+	 * @param boolean $tones
+	 *        	Set to false to remove tones.
+	 * @return string
+	 */
 	public static function gr_strtoupper($string, $tones = true) {
 		$ellhnika = array (
 				'α' => 'Α',
@@ -76,142 +84,174 @@ class GrHelpers {
 		$text = str_replace ( $search, $ellhnika, $string );
 		
 		// Fix any latin or other characters
-		$text = mb_convert_case($text, MB_CASE_UPPER, "UTF-8");
+		$text = mb_convert_case ( $text, MB_CASE_UPPER, "UTF-8" );
 		
 		return $text;
 	} // function gr_strtoupper()
 	
 	/**
-	 * Greek string to uppercase
+	 * Finds whether a variable is a greek/english alphanumeric string.
 	 *
-	 * Correctly converts greek letters to uppercase.
-	 * https://github.com/vdw/Greek-string-to-uppercase/blob/master/MY_string_helper.php
-	 * 
-	 * @access public
-	 * @param
-	 *        	string
-	 * @return string
+	 * @param string $string
+	 *        	The variable being evaluated.
+	 * @param array $extras
+	 *        	Extra characters to be considered as valid
+	 * @return boolean
 	 */
-	public static function grstrtoupper($string) {
-		$latin_check = '/[\x{0030}-\x{007f}]/u';
-		
-		if (preg_match ( $latin_check, $string )) {
-			
-			$string = strtoupper ( $string );
-		}
-		
-		$letters = array (
+	public static function gr_isalphanumeric($string, $extras = array()) {
+		$ellhnika = array (
 				'α',
+				'Α',
 				'β',
+				'Β',
 				'γ',
+				'Γ',
 				'δ',
+				'Δ',
 				'ε',
+				'Ε',
 				'ζ',
+				'Ζ',
 				'η',
+				'Η',
 				'θ',
+				'Θ',
 				'ι',
+				'Ι',
 				'κ',
+				'Κ',
 				'λ',
+				'Λ',
 				'μ',
+				'Μ',
 				'ν',
+				'Ν',
 				'ξ',
+				'Ξ',
 				'ο',
+				'Ο',
 				'π',
+				'Π',
 				'ρ',
+				'Ρ',
 				'σ',
+				'Σ',
+				'ς',
+				'Σ',
 				'τ',
+				'Τ',
 				'υ',
+				'Υ',
 				'φ',
+				'Φ',
 				'χ',
+				'Χ',
 				'ψ',
-				'ω' 
-		);
-		$letters_accent = array (
+				'ψ',
+				'ω',
+				'Ω',
 				'ά',
-				'έ',
-				'ή',
-				'ί',
-				'ό',
-				'ύ',
-				'ώ' 
-		);
-		$letters_upper_accent = array (
 				'Ά',
+				'έ',
 				'Έ',
+				'ή',
 				'Ή',
+				'ί',
 				'Ί',
+				'ϊ',
+				'Ϊ',
+				'ΐ',
+				'Ϊ',
+				'ό',
 				'Ό',
+				'ύ',
 				'Ύ',
+				'ϋ',
+				'Ϋ',
+				'ΰ',
+				'Ϋ',
+				'ώ',
 				'Ώ' 
 		);
-		$letters_upper_solvents = array (
-				'ϊ',
-				'ϋ' 
-		);
-		$letters_other = array (
-				'ς' 
+		
+		$english = array (
+				'a',
+				'A',
+				'b',
+				'B',
+				'c',
+				'C',
+				'd',
+				'D',
+				'e',
+				'E',
+				'f',
+				'F',
+				'g',
+				'G',
+				'h',
+				'H',
+				'i',
+				'I',
+				'j',
+				'J',
+				'k',
+				'K',
+				'l',
+				'L',
+				'm',
+				'M',
+				'n',
+				'N',
+				'o',
+				'O',
+				'p',
+				'P',
+				'q',
+				'Q',
+				'r',
+				'R',
+				's',
+				'S',
+				't',
+				'T',
+				'u',
+				'U',
+				'w',
+				'W',
+				'x',
+				'X',
+				'y',
+				'Y',
+				'z',
+				'Z' 
 		);
 		
-		$letters_to_uppercase = array (
-				'Α',
-				'Β',
-				'Γ',
-				'Δ',
-				'Ε',
-				'Ζ',
-				'Η',
-				'Θ',
-				'Ι',
-				'Κ',
-				'Λ',
-				'Μ',
-				'Ν',
-				'Ξ',
-				'Ο',
-				'Π',
-				'Ρ',
-				'Σ',
-				'Τ',
-				'Υ',
-				'Φ',
-				'Χ',
-				'Ψ',
-				'Ω' 
-		);
-		$letters_accent_to_uppercase = array (
-				'Α',
-				'Ε',
-				'Η',
-				'Ι',
-				'Ο',
-				'Υ',
-				'Ω' 
-		);
-		$letters_upper_accent_to_uppercase = array (
-				'Α',
-				'Ε',
-				'Η',
-				'Ι',
-				'Ο',
-				'Υ',
-				'Ω' 
-		);
-		$letters_upper_solvents_to_uppercase = array (
-				'Ι',
-				'Υ' 
-		);
-		$letters_other_to_uppercase = array (
-				'Σ' 
+		$numbers = array (
+				'0',
+				'1',
+				'2',
+				'3',
+				'4',
+				'5',
+				'6',
+				'7',
+				'8',
+				'9' 
 		);
 		
-		$lowercase = array_merge ( $letters, $letters_accent, $letters_upper_accent, $letters_upper_solvents, $letters_other );
-		$uppercase = array_merge ( $letters_to_uppercase, $letters_accent_to_uppercase, $letters_upper_accent_to_uppercase, $letters_upper_solvents_to_uppercase, $letters_other_to_uppercase );
+		$alphanumeric = array_merge ( $ellhnika, $english, $numbers, $extras );
+		$alphanumeric = implode ( "", $alphanumeric );
+		$characters = str_split ( $string );
 		
-		$uppecase_string = str_replace ( $lowercase, $uppercase, $string );
+		foreach ( $characters as $character ) {
+			if (! preg_match ( "/$character/", $alphanumeric )) {
+				return false;
+			}
+		}
 		
-		return $uppecase_string;
-	} // function grstrtoupper()
-	
+		return true;
+	} // function gr_isalphanumeric()
 } // class GrHelpers
 
 ?>

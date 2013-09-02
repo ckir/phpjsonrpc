@@ -63,18 +63,35 @@ class apiv1 {
 	/**
 	 * Generates a slug (pretty url) based on a string, which is typically a page/article title
 	 *
-	 * @param string $string
+	 * @param string $string        	
 	 * @return string the generated slug
-	 *
+	 *        
 	 */
 	public function getSlug($string) {
 		try {
-			$slug = new Local\Greek\Slugs\GreekSlugGenerator();
-			return $slug->get_slug($string);
+			$slug = new Local\Greek\Slugs\GreekSlugGenerator ();
+			return $slug->get_slug ( $string );
 		} catch ( Exception $e ) {
 			throw new \Zend\Json\Server\Exception\InvalidArgumentException ( 'Service unavailable', \Zend\Json\Server\Error::ERROR_INTERNAL );
 		}
 	} // function getSlug()
+	
+	/**
+	 * Simple white space tokenizer.
+	 * Break on every white space
+	 *
+	 * @param string $content
+	 *        	String to tokenize
+	 * @return array
+	 */
+	public function getTokens($content) {
+		try {
+			$whitespaceTokenizer = new Local\Greek\Nlp\Tokenizers\WhitespaceTokenizer\WhitespaceTokenizer ();
+			return $whitespaceTokenizer->tokenize ( $content );
+		} catch ( Exception $e ) {
+			throw new \Zend\Json\Server\Exception\InvalidArgumentException ( 'Service unavailable', \Zend\Json\Server\Error::ERROR_INTERNAL );
+		}
+	} // function getTokens()
 } // class apiv1
 
 $server = new Zend\Json\Server\Server ();

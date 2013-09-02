@@ -12,6 +12,7 @@ function get_base_path() {
 } // function get_base_path
 
 ob_end_flush ();
+echo "<meta charset='utf-8'> ";
 echo '<pre>' . PHP_EOL;
 if (preg_match ( "/localhost/", $_SERVER ["SERVER_NAME"] )) {
 	$mode = 'development';
@@ -79,6 +80,20 @@ foreach ( $scriptUris as $scriptUri ) {
 			$response = $client->call ( "getSlug", $parameters );
 			echo $client->getLastRequest ()->toJson () . PHP_EOL;
 			var_dump ( $response ) . PHP_EOL . PHP_EOL;
+		} catch ( Exception $e ) {
+			echo $client->getLastRequest ()->toJson () . PHP_EOL;
+			echo $e->getMessage () . PHP_EOL;
+		}
+		
+		try {
+			echo PHP_EOL . "Testing: getTokens" . PHP_EOL;
+			$parameters = array (
+					"content" => 'Σε ανακοίνωσή της η "ΑΔΕΔΥ" κατηγορεί την κυβέρνηση ότι, καθοδηγούμενη από την τρόικα, έχει στόχο «τη διάλυση των Δημοσίων Υπηρεσιών και των δομών του Κοινωνικού Κράτους»'
+			);
+			$response = $client->call ( "getTokens", $parameters );
+			echo $client->getLastRequest ()->toJson () . PHP_EOL;
+			var_dump ( $response ) . PHP_EOL . PHP_EOL;
+			
 		} catch ( Exception $e ) {
 			echo $client->getLastRequest ()->toJson () . PHP_EOL;
 			echo $e->getMessage () . PHP_EOL;

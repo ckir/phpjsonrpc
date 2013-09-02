@@ -28,24 +28,17 @@ class PorterStemmerGr {
 		$results = array ();
 		
 		if (! is_array ( $words )) {
-			//$words = preg_split ( '/((^\p{P}+)|(\p{P}*\s+\p{P}*)|(\p{P}+$))/', $words, - 1, PREG_SPLIT_NO_EMPTY );
-			$words = explode(" ", $words);
+			$tokenizer = new \Local\Greek\Nlp\Tokenizers\WhitespaceTokenizer\WhitespaceTokenizer ();
+			$words = $tokenizer->tokenize ( $words );
 		}
 		
 		foreach ( $words as $word ) {
-			$word = \Local\Greek\Helpers\GrHelpers::gr_strtoupper(trim ( $word ), false);
-			//$results [] = $stemmer->stem ( $word);
-			$results [] = $word;
+			$word = \Local\Greek\Helpers\GrHelpers::gr_strtoupper ( trim ( $word ), false );
+			$results [] = $stemmer->stem ( $word );
 		}
 		
 		return $results;
 	} // function getStemmed()
-	
-	private function checkName($tempName)
-	{
-		$tempName = strtr($tempName, "ΆάΈέΉήΌόΎύΏώ", "ααεεηηοουυωω");
-		return strtr($tempName, "αβγδεζηθικλμνξοπρστυφχψως" , "ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩΣ");
-	}
 } // class PorterStemmerGr
 
 ?>
