@@ -92,6 +92,26 @@ class apiv1 {
 			throw new \Zend\Json\Server\Exception\InvalidArgumentException ( 'Service unavailable', \Zend\Json\Server\Error::ERROR_INTERNAL );
 		}
 	} // function getTokens()
+	
+	/**
+	 * Greeglish
+	 * https://github.com/skapator/greeklish/blob/master/src/Skapator/Greeklish/Greeklish.php
+	 *
+	 * @param string $text
+	 *        	- the greek text
+	 * @param bool $stop_one
+	 *        	- if true removes one letter words
+	 * @param bool $stop_two
+	 *        	- if true removes two letter words
+	 * @access public
+	 */
+	public function getGreeglish($text, $stop_one = false, $stop_two = false) {
+		try {
+			return Local\Greek\Helpers\GrHelpers::gr_greeglish($text, $stop_one, $stop_two);
+		} catch ( Exception $e ) {
+			throw new \Zend\Json\Server\Exception\InvalidArgumentException ( 'Service unavailable', \Zend\Json\Server\Error::ERROR_INTERNAL );
+		}
+	} // function getGreeglish()
 } // class apiv1
 
 $server = new Zend\Json\Server\Server ();

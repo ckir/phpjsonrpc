@@ -1,5 +1,6 @@
 <?php
 require_once 'startup.php';
+
 use Zend\Json\Server\Client;
 function get_base_path() {
 	$s = empty ( $_SERVER ["HTTPS"] ) ? '' : ($_SERVER ["HTTPS"] == "on") ? "s" : "";
@@ -94,6 +95,20 @@ foreach ( $scriptUris as $scriptUri ) {
 			echo $client->getLastRequest ()->toJson () . PHP_EOL;
 			var_dump ( $response ) . PHP_EOL . PHP_EOL;
 			
+		} catch ( Exception $e ) {
+			echo $client->getLastRequest ()->toJson () . PHP_EOL;
+			echo $e->getMessage () . PHP_EOL;
+		}
+		
+		try {
+			echo PHP_EOL . "Testing: getGreeglish" . PHP_EOL;
+			$parameters = array (
+					"text" => 'Σε ανακοίνωσή της η "ΑΔΕΔΥ" κατηγορεί την κυβέρνηση ότι, καθοδηγούμενη από την τρόικα, έχει στόχο «τη διάλυση των Δημοσίων Υπηρεσιών και των δομών του Κοινωνικού Κράτους»'
+			);
+			$response = $client->call ( "getGreeglish", $parameters );
+			echo $client->getLastRequest ()->toJson () . PHP_EOL;
+			var_dump ( $response ) . PHP_EOL . PHP_EOL;
+				
 		} catch ( Exception $e ) {
 			echo $client->getLastRequest ()->toJson () . PHP_EOL;
 			echo $e->getMessage () . PHP_EOL;
