@@ -5,3 +5,5 @@ sudo rm -R Local/Util/Cache/cache/*
 sudo rm -R Docs/*
 
 php phpDocumentor.phar --filename="*.php" -t Docs  --title="JsonRpc api Toolkit"
+
+trash-put phpdoc*.log
