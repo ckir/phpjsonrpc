@@ -1,0 +1,117 @@
+<?php
+require_once 'startup.php';
+
+/**
+ * This is the main entry point for the Greek related methods of the api.
+ * In case of error, methods in this class should throw the appropriate type of exception.
+ * Also an appropriate \Zend\Json\Server\Error should be used.
+ *
+ * @throws \Zend\Json\Server\Exception\ErrorException
+ * @throws \Zend\Json\Server\Exception\HttpException
+ * @throws \Zend\Json\Server\Exception\InvalidArgumentException
+ * @throws \Zend\Json\Server\Exception\RuntimeException
+ */
+class apiv1greek {
+	
+	/**
+	 * Get a list of namedays for today, tomorrow and the day after tomorrow.
+	 *
+	 * @return array
+	 * @throws \Zend\Json\Exception\RuntimeException
+	 */
+	public function getGreekNamedays() {
+		$namedays = new Rpc\Greek\Info\Namedays\Namedays ();
+		return $namedays->getNamedays ();
+	} // function getNamedays()
+	
+	/**
+	 * Lookup for a phone number at "http://11888.ote.gr/web/guest/white-pages/search?who="
+	 *
+	 * @param int $phone
+	 *        	Phone number 10 digits format.
+	 * @return array
+	 * @throws \Zend\Json\Server\Exception\InvalidArgumentException
+	 * @throws \Zend\Json\Exception\RuntimeException
+	 */
+	public function getGreekPhoneInfo($number) {
+		$phone = new Rpc\Greek\Info\Phones\Phones ();
+		$response = $phone->lookup ( $number );
+	} // function getGreekPhoneInfo()
+	
+	/**
+	 * Takes a list of words and returns them reduced to their stems.
+	 *
+	 * $words can be either a string or an array. If it is a string, it will
+	 * be split into separate words on whitespace, commas, or semicolons. If
+	 * an array, it assumes one word per element.
+	 *
+	 * @param array|string $words
+	 *        	String or array of word(s) to reduce
+	 * @param bool $commonwords
+	 *        	Remove common words prior to stemming
+	 * @access public
+	 * @return array List of word stems
+	 */
+	public function getGreekStemmed($words, $commonwords = false) {
+		$stemmer = new Rpc\Greek\Stemmer\PorterStemmerGr ();
+		return $stemmer->getStemmed ( $words, $commonwords );
+	} // function getGreekStemmed()
+	
+	/**
+	 * Generates a slug (pretty url) based on a string, which is typically a page/article title
+	 *
+	 * @param string $string        	
+	 * @return string the generated slug
+	 *        
+	 */
+	public function getGreekSlug($string) {
+		$slug = new Rpc\Greek\Slugs\GreekSlugGenerator ();
+		return $slug->get_slug ( $string );
+	} // function getGreekSlug()
+	
+	/**
+	 * Simple white space tokenizer.
+	 * Break on every white space
+	 *
+	 * @param string $content
+	 *        	String to tokenize
+	 * @return array
+	 */
+	public function getGreekTokens($content) {
+		$whitespaceTokenizer = new Rpc\Greek\Nlp\Tokenizers\WhitespaceTokenizer\WhitespaceTokenizer ();
+		return $whitespaceTokenizer->tokenize ( $content );
+	} // function getGreekTokens()
+	
+	/**
+	 * Converts a greek string to greeglish.
+	 *
+	 * @param string $text
+	 *        	The greek text
+	 * @param bool $stop_one
+	 *        	If true removes one letter words
+	 * @param bool $stop_two
+	 *        	If true removes two letter words
+	 * @access public
+	 */
+	public function getGreekGreeglish($text, $stop_one = false, $stop_two = false) {
+		return Rpc\Greek\Helpers\GrHelpers::gr_greeglish ( $text, $stop_one, $stop_two );
+	} // function getGreekGreeglish()
+} // class apiv1greek
+
+$server = new Zend\Json\Server\Server ();
+$server->setClass ( new apiv1greek () );
+
+if ('GET' == $_SERVER ['REQUEST_METHOD']) {
+	// Indicate the URL endpoint, and the JSON-RPC version used:
+	$server->setTarget ( '/json-rpc.php' )->setEnvelope ( Zend\Json\Server\Smd::ENV_JSONRPC_2 );
+	
+	// Grab the SMD
+	$smd = $server->getServiceMap ();
+	
+	// Return the SMD to the client
+	header ( 'Content-Type: application/json' );
+	echo $smd;
+	return;
+}
+
+$server->handle ();

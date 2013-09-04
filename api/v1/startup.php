@@ -5,24 +5,21 @@ set_time_limit ( 0 );
 
 $APPLICATION_PATH = realpath ( dirname ( __FILE__ ) ) ;
 
-// Vendor folder is for composer installed libs
 $VENDOR = realpath ( $APPLICATION_PATH . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'vendor' );
 $ZF2 = realpath ( $VENDOR . DIRECTORY_SEPARATOR . 'zendframework' . DIRECTORY_SEPARATOR . 'zendframework' . DIRECTORY_SEPARATOR . 'library' );
 $NLPTOOLS = realpath ( $VENDOR . DIRECTORY_SEPARATOR . 'nlp-tools' . DIRECTORY_SEPARATOR . 'nlp-tools' . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'NlpTools');
-// contrib folder is for third party libs not available for composer installation
-$LIBS = realpath ( $APPLICATION_PATH . DIRECTORY_SEPARATOR . 'Contrib' );
-$HTMLPURIFIER = realpath ( $LIBS . DIRECTORY_SEPARATOR . 'htmlpurifier' . DIRECTORY_SEPARATOR . '4.5.0' );
+$CONTRIB = realpath ( $APPLICATION_PATH . DIRECTORY_SEPARATOR . 'Contrib' );
+$HTMLPURIFIER = realpath ( $CONTRIB . DIRECTORY_SEPARATOR . 'HTML'. DIRECTORY_SEPARATOR . 'htmlpurifier' . DIRECTORY_SEPARATOR . '4.5.0' );
 
-// library folder is for local to project classes
-$LOCAL = realpath ( $APPLICATION_PATH . DIRECTORY_SEPARATOR . 'Local' );
+$RPC = realpath ( $APPLICATION_PATH . DIRECTORY_SEPARATOR . 'Rpc' );
 
 $INCLUDE_PATH = implode ( PATH_SEPARATOR, array (
 		$VENDOR,
 		$ZF2,
 		$NLPTOOLS,
-		$LIBS,
+		$CONTRIB,
 		$HTMLPURIFIER,
-		$LOCAL,
+		$RPC,
 		get_include_path () 
 ) );
 
@@ -38,9 +35,15 @@ $loader->setOptions ( array (
 		'autoregister_zf' => true
 ) );
 
+// Vendor Namespace is for composer installed libs
 $loader->registerNamespace('Vendor', $VENDOR);
-$loader->registerNamespace('Contrib', $LIBS);
-$loader->registerNamespace('Local', $LOCAL); 
+
+// Contrib Namespace is for third party libs not available for composer installation
+// Should follow structure from phpclasses.org/version
+$loader->registerNamespace('Contrib', $CONTRIB);
+
+// Rpc Namespace is for local to project classes
+$loader->registerNamespace('Rpc', $RPC); 
 $loader->registerNamespace('NlpTools', $NLPTOOLS);
 $loader->register();
 
