@@ -2,7 +2,7 @@
 require_once 'startup.php';
 
 /**
- * This is the main entry point for the Greek related methods of the api.
+ * This is the main entry point for the general methods of the api.
  * In case of error, methods in this class should throw the appropriate type of exception.
  * Also an appropriate \Zend\Json\Server\Error should be used.
  *
@@ -23,10 +23,10 @@ class apiv1 {
 	 *        	The output format. Possible values are xml (default) or json.
 	 * @param array $purifier
 	 *        	Apply HTML Purifier to results.
-	 *          HTMLPurifier works by filtering out all (x)HTML from the data, except for the tags and attributes specifically allowed in a whitelist, and by checking and fixing nesting of tags, ensuring a standards-compliant output.
+	 *        	HTMLPurifier works by filtering out all (x)HTML from the data, except for the tags and attributes specifically allowed in a whitelist, and by checking and fixing nesting of tags, ensuring a standards-compliant output.
 	 * @param bool $escape
 	 *        	Apply Zend\Escaper to results. To help prevent XSS attacks, Zend Framework has a new component Zend\Escaper, which complies to the current OWASP recommendations, and as such, is the recommended tool for escaping HTML tags and attributes.
-	 * @return string|array
+	 * @return string array
 	 * @throws Exception\RuntimeException
 	 */
 	public function getReadersFeed($uri, $format = "xml", $purifier = array(true), $escape = true) {
@@ -45,7 +45,7 @@ class apiv1 {
 	 *        	The URI to read.
 	 * @param array $xpaths
 	 *        	Reduces fetched document by applying a set of xpath queries
-	 * @param unknown $purifier
+	 * @param array $purifier
 	 *        	Apply HTML Purifier to results.
 	 *        	Possible values:
 	 *        	array containing true (default): apply using standard settings,
@@ -60,20 +60,14 @@ class apiv1 {
 	 *        	new component Zend\Escaper, which complies to the current
 	 *        	OWASP recommendations, and as such, is the recommended tool
 	 *        	for escaping HTML tags and attributes.
-	 * @return string multitype:string
+	 * @return array
+	 * @throws \Zend\Json\Exception\InvalidArgumentException
+	 * @throws \Zend\Json\Exception\RuntimeException
 	 */
 	public function getReadersUri($uri, $xpaths = array(), $purifier = array(false), $escape = false) {
-		try {
-			$HTMLReader = new Rpc\Html\HTMLReader\HTMLReader ();
-			$response = $HTMLReader->getUri ( $uri, $xpaths, $purifier, $escape );
-			if (is_array ( $response )) {
-				return $response;
-			} else {
-				throw new \Zend\Json\Server\Exception\RuntimeException ( $response, \Zend\Json\Server\Error::ERROR_INTERNAL );
-			}
-		} catch ( Exception $e ) {
-			throw new \Zend\Json\Server\Exception\RuntimeException ( $e->getMessage (), \Zend\Json\Server\Error::ERROR_INTERNAL );
-		}
+		$HTMLReader = new Rpc\Html\HTMLReader\HTMLReader ();
+		$response = $HTMLReader->getUri ( $uri, $xpaths, $purifier, $escape );
+		return $response;
 	} // function getReadersUri
 	
 	/**

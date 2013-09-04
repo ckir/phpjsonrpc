@@ -138,10 +138,10 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1167261655"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1536244723"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1167261655" class="accordion-body collapse in">
+            <div id="namespace-1536244723" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                     
@@ -166,7 +166,7 @@
                     <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
 
                     <h1><small>\</small>apiv1</h1>
-                    <p><em>This is the main entry point for the Greek related methods of the api.</em></p>
+                    <p><em>This is the main entry point for the general methods of the api.</em></p>
                     <p>In case of error, methods in this class should throw the appropriate type of exception.
 Also an appropriate \Zend\Json\Server\Error should be used.</p>
 
@@ -277,7 +277,7 @@ Also an appropriate \Zend\Json\Server\Error should be used.</p>
             <article class="method">
                 <h3 class="public ">getReadersFeed()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getReadersFeed(string <span class="argument">$uri</span>, string <span class="argument">$format</span>, array <span class="argument">$purifier</span>, bool <span class="argument">$escape</span>) : string|array</pre>
+                <pre class="signature" style="margin-right: 54px;">getReadersFeed(string <span class="argument">$uri</span>, string <span class="argument">$format</span>, array <span class="argument">$purifier</span>, bool <span class="argument">$escape</span>) : string</pre>
                 <p><em>Import a feed by providing a URI.</em></p>
                 <p>Uses Cache Support and Intelligent Requests to avoid unnecessary network requests.</p>
 
@@ -300,7 +300,7 @@ Also an appropriate \Zend\Json\Server\Error should be used.</p>
                                 <td>array</td>
                                 <td>$purifier</td>
                                 <td><p>Apply HTML Purifier to results.
-         HTMLPurifier works by filtering out all (x)HTML from the data, except for the tags and attributes specifically allowed in a whitelist, and by checking and fixing nesting of tags, ensuring a standards-compliant output.</p>
+        HTMLPurifier works by filtering out all (x)HTML from the data, except for the tags and attributes specifically allowed in a whitelist, and by checking and fixing nesting of tags, ensuring a standards-compliant output.</p>
 </td>
                             </tr>
                                                     <tr>
@@ -319,7 +319,9 @@ Also an appropriate \Zend\Json\Server\Error should be used.</p>
                                                                     </dl>
                 
                                     <h4>Returns</h4>
-                    string|array
+                    string
+                                            &mdash; <p>array</p>
+
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -339,7 +341,7 @@ Also an appropriate \Zend\Json\Server\Error should be used.</p>
             <article class="method">
                 <h3 class="public ">getReadersUri()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getReadersUri(string <span class="argument">$uri</span>, array <span class="argument">$xpaths</span>, \unknown <span class="argument">$purifier</span>, bool <span class="argument">$escape</span>) : string</pre>
+                <pre class="signature" style="margin-right: 54px;">getReadersUri(string <span class="argument">$uri</span>, array <span class="argument">$xpaths</span>, array <span class="argument">$purifier</span>, bool <span class="argument">$escape</span>) : array</pre>
                 <p><em>Fetch and optionally process a page by providing a URI.</em></p>
                 
 
@@ -359,7 +361,7 @@ Also an appropriate \Zend\Json\Server\Error should be used.</p>
 </td>
                             </tr>
                                                     <tr>
-                                <td>\unknown</td>
+                                <td>array</td>
                                 <td>$purifier</td>
                                 <td><p>Apply HTML Purifier to results.
         Possible values:
@@ -383,11 +385,18 @@ Also an appropriate \Zend\Json\Server\Error should be used.</p>
                             </tr>
                                             </table>
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Zend\Json\Exception\InvalidArgumentException</dt>
+                            <dd>
+</dd>
+                                                    <dt>\Zend\Json\Exception\RuntimeException</dt>
+                            <dd>
+</dd>
+                                                                    </dl>
                 
                                     <h4>Returns</h4>
-                    string
-                                            &mdash; <p>multitype:string</p>
-
+                    array
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -704,7 +713,7 @@ an array, it assumes one word per element.</p>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on September 4th, 2013 at 20:50.
+                    on September 4th, 2013 at 21:26.
                 </section>
             </section>
         </section>

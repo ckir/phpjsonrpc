@@ -29,7 +29,7 @@ if (preg_match ( "/localhost/", $_SERVER ["SERVER_NAME"] )) {
 
 foreach ( $scriptUris as $scriptUri ) {
 	try {
-		echo PHP_EOL;
+		echo PHP_EOL . PHP_EOL;
 		echo str_repeat("*", strlen($scriptUri) + 2) . PHP_EOL;
 		echo str_repeat("*", strlen($scriptUri) + 2 ) . PHP_EOL;
 		echo $scriptUri . PHP_EOL;
@@ -61,6 +61,7 @@ foreach ( $scriptUris as $scriptUri ) {
 			$response = $client->call ( "getGreekPhoneInfo", $parameters );
 			echo $client->getLastRequest ()->toJson () . PHP_EOL;
 			print_r ( $response );
+			
 		} catch ( Exception $e ) {
 			echo $client->getLastRequest ()->toJson () . PHP_EOL;
 			echo "Error return: " . $e->getMessage () . PHP_EOL;

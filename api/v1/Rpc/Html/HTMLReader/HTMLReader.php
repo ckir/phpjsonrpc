@@ -17,7 +17,7 @@ class HTMLReader {
 	 *        	The URI to read.
 	 * @param array $xpaths
 	 *        	Reduces fetched document by applying a set of xpath queries
-	 * @param unknown $purifier
+	 * @param array $purifier
 	 *        	Apply HTML Purifier to results.
 	 *        	Possible values:
 	 *        	array containing true (default): apply using standard settings,
@@ -26,15 +26,23 @@ class HTMLReader {
 	 *        	HTMLPurifier works by filtering out all (x)HTML from the data,
 	 *        	except for the tags and attributes specifically allowed in a whitelist,
 	 *        	and by checking and fixing nesting of tags, ensuring a standards-compliant output.
-	 * @param string $escape
+	 * @param bool $escape
 	 *        	Apply Zend\Escaper to results.
 	 *        	To help prevent XSS attacks, Zend Framework has a
 	 *        	new component Zend\Escaper, which complies to the current
 	 *        	OWASP recommendations, and as such, is the recommended tool
 	 *        	for escaping HTML tags and attributes.
-	 * @return string multitype:string
+	 * @return array
+	 * @throws \Zend\Json\Exception\InvalidArgumentException
+	 * @throws \Zend\Json\Exception\RuntimeException
 	 */
 	public function getUri($uri, $xpaths = array(), $purifier = array(false), $escape = false) {
+		
+		$zuri = \Zend\Uri\UriFactory::factory($uri);
+		if (! $zuri->isValid()) {
+			throw new \Zend\Json\Exception\InvalidArgumentException("Invalid Uri", \Zend\Json\Server\Error::ERROR_INVALID_PARAMS);
+		}
+		
 		$ch = curl_init ();
 		curl_setopt ( $ch, CURLOPT_URL, $uri );
 		curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, true );
@@ -49,7 +57,7 @@ class HTMLReader {
 		if (curl_errno ( $ch )) {
 			$error = curl_error($ch);
 			curl_close ( $ch );
-			return $error;
+			throw new \Zend\Json\Exception\RuntimeException ( $error, \Zend\Json\Server\Error::ERROR_OTHER );
 		}
 		
 		$info = curl_getinfo ( $ch );
@@ -58,7 +66,7 @@ class HTMLReader {
 		if ($info ['http_code'] !== 200) {
 			$error =json_encode($info) . PHP_EOL . $results;
 			curl_close ( $ch );
-			return $error;
+			throw new \Zend\Json\Exception\RuntimeException ( $error, \Zend\Json\Server\Error::ERROR_OTHER );
 		}
 
 		$results = html_entity_decode ( $results, ENT_QUOTES, "UTF-8" );

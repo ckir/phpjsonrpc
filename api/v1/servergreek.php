@@ -21,7 +21,8 @@ class apiv1greek {
 	 */
 	public function getGreekNamedays() {
 		$namedays = new Rpc\Greek\Info\Namedays\Namedays ();
-		return $namedays->getNamedays ();
+		$response = $namedays->getNamedays ();
+		return $response;
 	} // function getNamedays()
 	
 	/**
@@ -36,6 +37,7 @@ class apiv1greek {
 	public function getGreekPhoneInfo($number) {
 		$phone = new Rpc\Greek\Info\Phones\Phones ();
 		$response = $phone->lookup ( $number );
+		return $response;
 	} // function getGreekPhoneInfo()
 	
 	/**
@@ -54,7 +56,8 @@ class apiv1greek {
 	 */
 	public function getGreekStemmed($words, $commonwords = false) {
 		$stemmer = new Rpc\Greek\Stemmer\PorterStemmerGr ();
-		return $stemmer->getStemmed ( $words, $commonwords );
+		$response = $stemmer->getStemmed ( $words, $commonwords );
+		return $response;
 	} // function getGreekStemmed()
 	
 	/**
@@ -66,7 +69,8 @@ class apiv1greek {
 	 */
 	public function getGreekSlug($string) {
 		$slug = new Rpc\Greek\Slugs\GreekSlugGenerator ();
-		return $slug->get_slug ( $string );
+		$response = $slug->get_slug ( $string );
+		return $response;
 	} // function getGreekSlug()
 	
 	/**
@@ -79,7 +83,8 @@ class apiv1greek {
 	 */
 	public function getGreekTokens($content) {
 		$whitespaceTokenizer = new Rpc\Greek\Nlp\Tokenizers\WhitespaceTokenizer\WhitespaceTokenizer ();
-		return $whitespaceTokenizer->tokenize ( $content );
+		$response = $whitespaceTokenizer->tokenize ( $content );
+		return $response;
 	} // function getGreekTokens()
 	
 	/**
@@ -94,7 +99,8 @@ class apiv1greek {
 	 * @access public
 	 */
 	public function getGreekGreeglish($text, $stop_one = false, $stop_two = false) {
-		return Rpc\Greek\Helpers\GrHelpers::gr_greeglish ( $text, $stop_one, $stop_two );
+		$response = Rpc\Greek\Helpers\GrHelpers::gr_greeglish ( $text, $stop_one, $stop_two );
+		return $response;
 	} // function getGreekGreeglish()
 } // class apiv1greek
 
