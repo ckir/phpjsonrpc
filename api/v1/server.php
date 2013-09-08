@@ -1,6 +1,11 @@
 <?php
 require_once 'startup.php';
 
+// $a = new \Rpc\Text\Unicode\Unicode ();
+
+// $languageDetect = new \Rpc\Text\LanguageDetect\LanguageDetect ();
+// $response = $languageDetect->getLanguage ( "Επιστήμες και η Βιολογία που είναι βασική επιστήμη και δεν ξέρω πως μπορούν σε μια σειρά από ειδικότητες να απουσιάζει η Βιολογία ή να υποβαθμίζονται οι Φυσικές Επιστήμες»" );
+
 /**
  * This is the main entry point for the general methods of the api.
  * In case of error, methods in this class should throw the appropriate type of exception.
@@ -12,6 +17,23 @@ require_once 'startup.php';
  * @throws \Zend\Json\Server\Exception\RuntimeException
  */
 class apiv1 {
+	
+	/**
+	 * Returns all available information from cldr data for a given language.
+	 *
+	 * @param string $language
+	 *        	The language code
+	 * @param string $return
+	 *        	The return type. Could be "json" (default) or "xml"
+	 * @throws \Zend\Json\Server\Exception\InvalidArgumentException
+	 * @throws \Zend\Json\Server\Exception\RuntimeException
+	 * @return array|string
+	 */
+	public function getI18nCldrAll($language, $return = "json") {
+		$cldr = new \Rpc\I18n\Cldr\Cldr ();
+		$response = $cldr->getAll ( $language, $return );
+		return $response;
+	} // function getI18nCldrAll()
 	
 	/**
 	 * Import a feed by providing a URI.

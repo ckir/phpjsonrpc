@@ -48,6 +48,24 @@ foreach ( $scriptUris as $scriptUri ) {
 		$client = new Client ( $scriptUri );
 		
 		try {
+			$m = "Testing: getI18nCldrAll";
+			echo PHP_EOL . str_repeat("*", strlen($m) + 2) . PHP_EOL;
+			echo $m . PHP_EOL;
+			echo str_repeat("*", strlen($m) + 2) . PHP_EOL;
+			$parameters = array (
+					"language" => "el",
+					"return" => "json"
+			);
+			$response = $client->call ( "getI18nCldrAll", $parameters );
+			echo $client->getLastRequest ()->toJson () . PHP_EOL;
+			echo json_encode($response) . PHP_EOL;
+			// print_r ( $response ); // Huge output
+		} catch ( Exception $e ) {
+			echo $client->getLastRequest ()->toJson () . PHP_EOL;
+			echo "Error return: " . $e->getMessage () . PHP_EOL;
+		}
+		
+		try {
 			$m = "Testing: getReadersFeed";
 			echo PHP_EOL . str_repeat("*", strlen($m) + 2) . PHP_EOL;
 			echo $m . PHP_EOL;
