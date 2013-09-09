@@ -138,10 +138,10 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1720890071"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-2123062821"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1720890071" class="accordion-body collapse in">
+            <div id="namespace-2123062821" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                     
@@ -195,6 +195,9 @@ Also an appropriate \Zend\Json\Server\Error should be used.</p>
                                                                     <a href="../classes/apiv1.html#method_getTextRemoveCommonWords" class="">getTextRemoveCommonWords()</a><br />
                                                                     <a href="../classes/apiv1.html#method_getTextSimilarity" class="">getTextSimilarity()</a><br />
                                                                     <a href="../classes/apiv1.html#method_getTextMetaphone" class="">getTextMetaphone()</a><br />
+                                                                    <a href="../classes/apiv1.html#method_getTextTokenization" class="">getTextTokenization()</a><br />
+                                                                    <a href="../classes/apiv1.html#method_getTextMorphoAnalysis" class="">getTextMorphoAnalysis()</a><br />
+                                                                    <a href="../classes/apiv1.html#method_getTextPartOfSpeechTagging" class="">getTextPartOfSpeechTagging()</a><br />
                                                             </section>
                             <section class="span4">
                                                                     <em>No public properties found</em>
@@ -810,6 +813,192 @@ an array, it assumes one word per element.</p>
         </aside>
     </div>
 
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getTextTokenization" name="method_getTextTokenization" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getTextTokenization()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getTextTokenization(string <span class="argument">$inputtext</span>, string <span class="argument">$language</span>) : array</pre>
+                <p><em>Tokenize a string via OpenXerox.</em></p>
+                <p>Supported languages are:
+Czech
+English
+French
+German
+Greek
+Hungarian
+Italian
+Polish
+Russian
+Turkish</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$inputtext</td>
+                                <td><p>The string to tokenize.</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$language</td>
+                                <td><p>The language of the string.</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Zend\Json\Exception\RuntimeException</dt>
+                            <dd>
+</dd>
+                                                    <dt>\Zend\Json\Exception\InvalidArgumentException</dt>
+                            <dd>
+</dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    array
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getTextMorphoAnalysis" name="method_getTextMorphoAnalysis" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getTextMorphoAnalysis()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getTextMorphoAnalysis(string <span class="argument">$inputtext</span>, string <span class="argument">$language</span>) : array</pre>
+                <p><em>MorphoAnalysis a string via OpenXerox.</em></p>
+                <p>Supported languages are:
+Czech
+English
+French
+German
+Greek
+Hungarian
+Italian
+Polish
+Russian
+Turkish</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$inputtext</td>
+                                <td><p>The string to tokenize.</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$language</td>
+                                <td><p>The language of the string.</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Zend\Json\Exception\RuntimeException</dt>
+                            <dd>
+</dd>
+                                                    <dt>\Zend\Json\Exception\InvalidArgumentException</dt>
+                            <dd>
+</dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    array
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getTextPartOfSpeechTagging" name="method_getTextPartOfSpeechTagging" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getTextPartOfSpeechTagging()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getTextPartOfSpeechTagging(string <span class="argument">$inputtext</span>, string <span class="argument">$language</span>) : array</pre>
+                <p><em>PartOfSpeechTagging a string via OpenXerox.</em></p>
+                <p>Supported languages are:
+Czech
+English
+French
+German
+Greek
+Hungarian
+Italian
+Polish
+Russian
+Turkish</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$inputtext</td>
+                                <td><p>The string to tokenize.</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$language</td>
+                                <td><p>The language of the string.</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Zend\Json\Exception\RuntimeException</dt>
+                            <dd>
+</dd>
+                                                    <dt>\Zend\Json\Exception\InvalidArgumentException</dt>
+                            <dd>
+</dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    array
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
                                                                     </div>
     </section>
 
@@ -859,7 +1048,7 @@ an array, it assumes one word per element.</p>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on September 9th, 2013 at 12:13.
+                    on September 9th, 2013 at 23:31.
                 </section>
             </section>
         </section>

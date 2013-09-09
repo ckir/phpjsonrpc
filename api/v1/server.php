@@ -87,7 +87,7 @@ class apiv1 {
 	 * Ukrainian (українська мова)
 	 * Welsh (Cymraeg)
 	 * Vietnamese (Tiếng Việt)
-	 * 
+	 *
 	 * @param array $texts        	
 	 * @return array
 	 * @throws \Zend\Json\Exception\RuntimeException
@@ -272,6 +272,89 @@ class apiv1 {
 			throw new \Zend\Json\Server\Exception\InvalidArgumentException ( 'Service unavailable', \Zend\Json\Server\Error::ERROR_INTERNAL );
 		}
 	} // function getTextMetaphone()
+	
+	/**
+	 * Tokenize a string via OpenXerox.
+	 *
+	 * Supported languages are:
+	 * Czech
+	 * English
+	 * French
+	 * German
+	 * Greek
+	 * Hungarian
+	 * Italian
+	 * Polish
+	 * Russian
+	 * Turkish
+	 *
+	 * @param string $inputtext
+	 *        	The string to tokenize.
+	 * @param string $language
+	 *        	The language of the string.
+	 * @return array
+	 * @throws \Zend\Json\Exception\RuntimeException
+	 * @throws \Zend\Json\Exception\InvalidArgumentException
+	 */
+	public function getTextTokenization($inputtext, $language) {
+		$tokenization = new Rpc\Mashups\OpenXerox\LinguisticTools ();
+		$response = $tokenization->Tokenization ( $inputtext, $language );
+		return $response;
+	} // function getTextTokenization()
+	
+	/**
+	 * MorphoAnalysis a string via OpenXerox.
+	 *
+	 * Supported languages are:
+	 * Czech
+	 * English
+	 * French
+	 * German
+	 * Greek
+	 * Hungarian
+	 * Italian
+	 * Polish
+	 * Russian
+	 * Turkish
+	 *
+	 * @param string $inputtext The string to tokenize.
+	 * @param string $language  The language of the string.
+	 * @return array
+	 * @throws \Zend\Json\Exception\RuntimeException
+	 * @throws \Zend\Json\Exception\InvalidArgumentException
+	 */
+	public function getTextMorphoAnalysis($inputtext, $language) {
+		$morphoAnalysis = new Rpc\Mashups\OpenXerox\LinguisticTools ();
+		$response = $morphoAnalysis->MorphoAnalysis ( $inputtext, $language );
+		return $response;
+	} // function getTextMorphoAnalysis()
+	
+	/**
+	 * PartOfSpeechTagging a string via OpenXerox.
+	 *
+	 * Supported languages are:
+	 * Czech
+	 * English
+	 * French
+	 * German
+	 * Greek
+	 * Hungarian
+	 * Italian
+	 * Polish
+	 * Russian
+	 * Turkish
+	 *
+	 * @param string $inputtext The string to tokenize.
+	 * @param string $language  The language of the string.
+	 * @return array
+	 * @throws \Zend\Json\Exception\RuntimeException
+	 * @throws \Zend\Json\Exception\InvalidArgumentException
+	 */
+	public function getTextPartOfSpeechTagging($inputtext, $language) {
+		$partOfSpeechTagging = new Rpc\Mashups\OpenXerox\LinguisticTools ();
+		$response = $partOfSpeechTagging->PartOfSpeechTagging ( $inputtext, $language );
+		return $response;
+	} // function getTextPartOfSpeechTagging()
 } // class apiv1
 
 $server = new Zend\Json\Server\Server ();

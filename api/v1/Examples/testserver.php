@@ -1,5 +1,7 @@
 <?php
 require_once '../startup.php';
+//$tokenization = new Rpc\Mashups\OpenXerox\LinguisticTools();
+//$response = $tokenization->MorphoAnalysis("Θετική ήταν η απάντηση της Δαμασκού στη ρωσική πρόταση να παραδώσει το χημικό της οπλοστάσιο στον διεθνή έλεγχο.", "Greek");
 
 use Zend\Json\Server\Client;
 
@@ -28,7 +30,7 @@ if (preg_match ( "/localhost/", $_SERVER ["SERVER_NAME"] )) {
 	$mode = 'development';
 	$scriptUris = array (
 			get_parent_path() . "/" . "server.php",
-			"http://phpjsonrpc.herokuapp.com/api/v1/text.php" 
+			"http://phpjsonrpc.herokuapp.com/api/v1/server.php" 
 	);
 } else {
 	$mode = 'production';
@@ -219,6 +221,58 @@ foreach ( $scriptUris as $scriptUri ) {
 			echo $client->getLastRequest ()->toJson () . PHP_EOL;
 			echo "Error return: " . $e->getMessage () . PHP_EOL;
 		}
+		
+		try {
+			$m = "Testing: getTextTokenization";
+			echo PHP_EOL . str_repeat("*", strlen($m) + 2) . PHP_EOL;
+			echo $m . PHP_EOL;
+			echo str_repeat("*", strlen($m) + 2) . PHP_EOL;
+			$parameters = array (
+					"inputtext" => "Θετική ήταν η απάντηση της Δαμασκού στη ρωσική πρόταση να παραδώσει το χημικό της οπλοστάσιο στον διεθνή έλεγχο.",
+					"language" => "Greek"
+			);
+			$response = $client->call ( "getTextTokenization", $parameters );
+			echo $client->getLastRequest ()->toJson () . PHP_EOL;
+			print_r ( $response );
+		} catch ( Exception $e ) {
+			echo $client->getLastRequest ()->toJson () . PHP_EOL;
+			echo "Error return: " . $e->getMessage () . PHP_EOL;
+		}
+		
+		try {
+			$m = "Testing: getTextMorphoAnalysis";
+			echo PHP_EOL . str_repeat("*", strlen($m) + 2) . PHP_EOL;
+			echo $m . PHP_EOL;
+			echo str_repeat("*", strlen($m) + 2) . PHP_EOL;
+			$parameters = array (
+					"inputtext" => "Θετική ήταν η απάντηση της Δαμασκού στη ρωσική πρόταση να παραδώσει το χημικό της οπλοστάσιο στον διεθνή έλεγχο.",
+					"language" => "Greek"
+			);
+			$response = $client->call ( "getTextMorphoAnalysis", $parameters );
+			echo $client->getLastRequest ()->toJson () . PHP_EOL;
+			print_r ( $response );
+		} catch ( Exception $e ) {
+			echo $client->getLastRequest ()->toJson () . PHP_EOL;
+			echo "Error return: " . $e->getMessage () . PHP_EOL;
+		}
+		
+		try {
+			$m = "Testing: getTextPartOfSpeechTagging";
+			echo PHP_EOL . str_repeat("*", strlen($m) + 2) . PHP_EOL;
+			echo $m . PHP_EOL;
+			echo str_repeat("*", strlen($m) + 2) . PHP_EOL;
+			$parameters = array (
+					"inputtext" => "Θετική ήταν η απάντηση της Δαμασκού στη ρωσική πρόταση να παραδώσει το χημικό της οπλοστάσιο στον διεθνή έλεγχο.",
+					"language" => "Greek"
+			);
+			$response = $client->call ( "getTextPartOfSpeechTagging", $parameters );
+			echo $client->getLastRequest ()->toJson () . PHP_EOL;
+			print_r ( $response );
+		} catch ( Exception $e ) {
+			echo $client->getLastRequest ()->toJson () . PHP_EOL;
+			echo "Error return: " . $e->getMessage () . PHP_EOL;
+		}
+		
 	} catch ( Exception $e ) {
 		echo $e->getMessage () . PHP_EOL;
 	}
