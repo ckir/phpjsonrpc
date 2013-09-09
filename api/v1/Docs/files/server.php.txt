@@ -1,6 +1,7 @@
 <?php
 require_once 'startup.php';
-
+// $a = new \Rpc\Mashups\OpenXerox\LanguageIdentifier();
+// $response = $a->GetLanguageForStrings(array("bonjour", "Ένα βίντεο που τράβηξαν κάποιοι Έλληνες"));
 // $a = new \Rpc\Text\Unicode\Unicode ();
 
 // $languageDetect = new \Rpc\Text\LanguageDetect\LanguageDetect ();
@@ -27,13 +28,75 @@ class apiv1 {
 	 *        	The return type. Could be "json" (default) or "xml"
 	 * @throws \Zend\Json\Server\Exception\InvalidArgumentException
 	 * @throws \Zend\Json\Server\Exception\RuntimeException
-	 * @return array|string
+	 * @return array string
 	 */
 	public function getI18nCldrAll($language, $return = "json") {
 		$cldr = new \Rpc\I18n\Cldr\Cldr ();
 		$response = $cldr->getAll ( $language, $return );
 		return $response;
 	} // function getI18nCldrAll()
+	
+	/**
+	 * Identify languages via OpenXerox
+	 *
+	 * This service works for the following list of languages:
+	 * Arabic
+	 * Bulgarian (български език)
+	 * Breton (Brezhoneg)
+	 * Catalan; Valencian (Català)
+	 * Chinese (中文)
+	 * Croatian (Hrvatski)
+	 * Czech (Česky)
+	 * Danish (Dansk)
+	 * Dutch (Nederlands)
+	 * English (English)
+	 * Esperanto (Esperanto)
+	 * Estonian (Eesti keel)
+	 * Basque (Euskara)
+	 * Finnish (Suomen kieli)
+	 * French (Français)
+	 * Georgian (ქართული)
+	 * German (Deutsch)
+	 * Greek (Ελληνικά)
+	 * Hebrew (he)
+	 * Hindi (हिन्दी)
+	 * Hungarian (Magyar)
+	 * Icelandic (Íslenska)
+	 * Indonesian (Bahasa Indonesia)
+	 * Italian (Italiano)
+	 * Irish (Gaeilge)
+	 * Japanese (日本語)
+	 * Korean (한국어)
+	 * Latin (Latine)
+	 * Lithuanian (Lietuvių kalba)
+	 * Latvian (Latviešu valoda)
+	 * Malay (Bahasa Melayu)
+	 * Maltese (Malti)
+	 * Norwegian (Norsk)
+	 * Polish (Polski)
+	 * Portuguese (Português)
+	 * Romanian (Română)
+	 * Russian (русский язык)
+	 * Slovak (Slovenčina)
+	 * Slovenian (Slovenščina)
+	 * Spanish; Castilian (Español)
+	 * Albanian (Shqip)
+	 * Swahili (Kiswahili)
+	 * Swedish (Svenska)
+	 * Turkish (Türkçe)
+	 * Ukrainian (українська мова)
+	 * Welsh (Cymraeg)
+	 * Vietnamese (Tiếng Việt)
+	 * 
+	 * @param array $texts        	
+	 * @return array
+	 * @throws \Zend\Json\Exception\RuntimeException
+	 */
+	public function getI18nLanguageForStrings($texts) {
+		$languageForStrings = new \Rpc\Mashups\OpenXerox\LanguageIdentifier ();
+		$response = $languageForStrings->GetLanguageForStrings ( $texts );
+		return $response;
+	} // function getI18nLanguageForStrings()
 	
 	/**
 	 * Import a feed by providing a URI.

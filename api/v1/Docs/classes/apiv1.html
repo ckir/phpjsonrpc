@@ -138,10 +138,10 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1126585138"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1720890071"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1126585138" class="accordion-body collapse in">
+            <div id="namespace-1720890071" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                     
@@ -187,6 +187,7 @@ Also an appropriate \Zend\Json\Server\Error should be used.</p>
                         <section class="row-fluid public">
                             <section class="span4">
                                                                     <a href="../classes/apiv1.html#method_getI18nCldrAll" class="">getI18nCldrAll()</a><br />
+                                                                    <a href="../classes/apiv1.html#method_getI18nLanguageForStrings" class="">getI18nLanguageForStrings()</a><br />
                                                                     <a href="../classes/apiv1.html#method_getReadersFeed" class="">getReadersFeed()</a><br />
                                                                     <a href="../classes/apiv1.html#method_getReadersUri" class="">getReadersUri()</a><br />
                                                                     <a href="../classes/apiv1.html#method_getReadersUriText" class="">getReadersUriText()</a><br />
@@ -278,7 +279,7 @@ Also an appropriate \Zend\Json\Server\Error should be used.</p>
             <article class="method">
                 <h3 class="public ">getI18nCldrAll()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getI18nCldrAll(string <span class="argument">$language</span>, string <span class="argument">$return</span>) : array|string</pre>
+                <pre class="signature" style="margin-right: 54px;">getI18nCldrAll(string <span class="argument">$language</span>, string <span class="argument">$return</span>) : array</pre>
                 <p><em>Returns all available information from cldr data for a given language.</em></p>
                 
 
@@ -310,7 +311,99 @@ Also an appropriate \Zend\Json\Server\Error should be used.</p>
                                                                     </dl>
                 
                                     <h4>Returns</h4>
-                    array|string
+                    array
+                                            &mdash; <p>string</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getI18nLanguageForStrings" name="method_getI18nLanguageForStrings" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getI18nLanguageForStrings()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getI18nLanguageForStrings(array <span class="argument">$texts</span>) : array</pre>
+                <p><em>Identify languages via OpenXerox</em></p>
+                <p>This service works for the following list of languages:
+Arabic
+Bulgarian (български език)
+Breton (Brezhoneg)
+Catalan; Valencian (Català)
+Chinese (中文)
+Croatian (Hrvatski)
+Czech (Česky)
+Danish (Dansk)
+Dutch (Nederlands)
+English (English)
+Esperanto (Esperanto)
+Estonian (Eesti keel)
+Basque (Euskara)
+Finnish (Suomen kieli)
+French (Français)
+Georgian (ქართული)
+German (Deutsch)
+Greek (Ελληνικά)
+Hebrew (he)
+Hindi (हिन्दी)
+Hungarian (Magyar)
+Icelandic (Íslenska)
+Indonesian (Bahasa Indonesia)
+Italian (Italiano)
+Irish (Gaeilge)
+Japanese (日本語)
+Korean (한국어)
+Latin (Latine)
+Lithuanian (Lietuvių kalba)
+Latvian (Latviešu valoda)
+Malay (Bahasa Melayu)
+Maltese (Malti)
+Norwegian (Norsk)
+Polish (Polski)
+Portuguese (Português)
+Romanian (Română)
+Russian (русский язык)
+Slovak (Slovenčina)
+Slovenian (Slovenščina)
+Spanish; Castilian (Español)
+Albanian (Shqip)
+Swahili (Kiswahili)
+Swedish (Svenska)
+Turkish (Türkçe)
+Ukrainian (українська мова)
+Welsh (Cymraeg)
+Vietnamese (Tiếng Việt)</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$texts</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Zend\Json\Exception\RuntimeException</dt>
+                            <dd>
+</dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    array
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -766,7 +859,7 @@ an array, it assumes one word per element.</p>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on September 8th, 2013 at 11:04.
+                    on September 9th, 2013 at 12:13.
                 </section>
             </section>
         </section>

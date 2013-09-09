@@ -1,5 +1,12 @@
 <?php
 require_once 'startup.php';
+// $a = implode(" ", \Rpc\Greek\Helpers\GrHelpers::$omegaL);
+// $a = mb_convert_case ( $a, MB_CASE_UPPER, "UTF-8" );
+// $a = explode(' ', $a);
+// $b = "";
+// foreach ($a as $value) {
+// 	$b = $b . "'$value', ";
+// }
 
 /**
  * This is the main entry point for the Greek related methods of the api.

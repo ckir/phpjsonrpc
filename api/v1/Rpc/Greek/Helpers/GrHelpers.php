@@ -8,6 +8,80 @@ namespace Rpc\Greek\Helpers;
  *        
  */
 class GrHelpers {
+	
+	public static $alphaL = array('α', 'ά', 'ἀ', 'ἄ', 'ἂ', 'ἆ', 'ἁ', 'ἅ', 'ἃ', 'ἇ', 'ὰ', 'ᾶ');
+	public static $alphaU = array('Α', 'Ά', 'Ἀ', 'Ἄ', 'Ἂ', 'Ἆ', 'Ἁ', 'Ἅ', 'Ἃ', 'Ἇ', 'Ὰ', 'Ᾱ ');
+	
+	public static $betaL = array(	'β');
+	public static $betaU = array('Β');
+	
+	public static $gammaL = array('γ');
+	public static $gammaU = array('Γ');
+	
+	public static $deltaL = array('δ');
+	public static $deltaU = array('Δ');
+	
+	public static $epsilonL = array('ε', 'έ', 'ἐ', 'ἔ', 'ἒ', 'ἑ', 'ἕ', 'ἓ', 'ὲ');
+	public static $epsilonU = array('Ε', 'Έ', 'Ἐ', 'Ἔ', 'Ἒ', 'Ἑ', 'Ἕ', 'Ἓ', 'Ὲ');
+	
+	public static $zetaL = array('ζ');
+	public static $zetaU = array('Ζ');
+	
+	public static $etaL = array('η', 'ή', 'ἠ', 'ἤ', 'ἢ', 'ἦ', 'ἡ', 'ἥ', 'ἣ', 'ἧ', 'ὴ', 'ῆ');
+	public static $etaU = array('Η', 'Ή', 'Ἠ', 'Ἤ', 'Ἢ', 'Ἦ', 'Ἡ', 'Ἥ', 'Ἣ', 'Ἧ', 'Ὴ', ' ');
+	
+	public static $thetaL = array('θ');
+	public static $thetaU = array('Θ');
+	
+	public static $iotaL = array('ι', 'ί', 'ϊ', 'ΐ', 'ἰ', 'ἴ', 'ἲ', 'ἶ', 'ἱ', 'ἵ', 'ἳ', 'ἷ', 'ὶ', 'ῖ', 'ῒ', 'ῗ');
+	public static $iotaU = array('Ι', 'Ί', 'Ϊ', ' ', 'Ἰ', 'Ἴ', 'Ἲ', 'Ἶ', 'Ἱ', 'Ἵ', 'Ἳ', 'Ἷ', 'Ὶ', ' ', ' ', ' ');
+	
+	public static $kappaL = array('κ');
+	public static $kappaU = array('Κ');
+	
+	public static $lambdaL = array('λ');
+	public static $lambdaU = array('Λ');
+	
+	public static $muL = array('μ');
+	public static $muU = array('Μ');
+	
+	public static $nuL = array('ν');
+	public static $nuU = array('Ν');
+	
+	public static $xiL = array('ξ');
+	public static $xiU = array('Ξ');
+	
+	public static $omicronL = array('ο', 'ό', 'ὄ', 'ὂ', 'ὃ', 'ὸ');
+	public static $omicronU = array('Ο', 'Ό', 'Ὄ', 'Ὂ', 'Ὃ', 'Ὸ');
+	
+	public static $piL = array('π');
+	public static $piU = array('Π');
+	
+	public static $rhoL = array('ρ');
+	public static $rhoU = array('Ρ');
+	
+	public static $sigmaL = array('σ', 'ς');
+	public static $sigmaU = array('Σ', 'Σ');
+	
+	public static $tauL = array('τ');
+	public static $tauU = array('Τ');
+	
+	public static $upsilonL = array('υ', 'ύ', 'ϋ', 'ΰ', 'ὐ', 'ὔ', 'ὒ', 'ὖ', 'ὑ', 'ὕ', 'ὓ', 'ὗ', 'ὺ', 'ῦ', 'ῢ', 'ῧ');
+	public static $upsilonU = array('Υ', 'Ύ', 'Ϋ', ' ', ' ', ' ', ' ', ' ', 'Ὑ', 'Ὕ', 'Ὓ', 'Ὗ', 'Ὺ', ' ', ' ', ' ');
+	
+	public static $phiL = array('φ');
+	public static $phiU = array('Φ');
+	
+	public static $chiL = array('χ');
+	public static $chiU = array('Χ');
+	
+	public static $psiL = array('ψ');
+	public static $psiU = array('Ψ');
+	
+	public static $omegaL = array('ω', 'ώ', 'ὤ', 'ὢ', 'ὦ', 'ὥ', 'ὣ', 'ὧ', 'ὼ', 'ῶ');
+	public static $omegaU = array('Ω', 'Ώ', 'Ὤ', 'Ὢ', 'Ὦ', 'Ὥ', 'Ὣ', 'Ὧ', 'Ὼ', ' ');
+	
+	
 	/**
 	 * Make a greek/english string uppercase.
 	 *
@@ -42,7 +116,7 @@ class GrHelpers {
 				'υ' => 'Υ',
 				'φ' => 'Φ',
 				'χ' => 'Χ',
-				'ψ' => 'ψ',
+				'ψ' => 'Ψ',
 				'ω' => 'Ω' 
 		);
 		

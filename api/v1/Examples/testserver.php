@@ -66,6 +66,23 @@ foreach ( $scriptUris as $scriptUri ) {
 		}
 		
 		try {
+			$m = "Testing: getI18nLanguageForStrings";
+			echo PHP_EOL . str_repeat("*", strlen($m) + 2) . PHP_EOL;
+			echo $m . PHP_EOL;
+			echo str_repeat("*", strlen($m) + 2) . PHP_EOL;
+			$parameters = array (
+					"texts" => array("bonjour", "Ένα βίντεο που τράβηξαν κάποιοι Έλληνες")
+			);
+			$response = $client->call ( "getI18nLanguageForStrings", $parameters );
+			echo $client->getLastRequest ()->toJson () . PHP_EOL;
+			print_r ( $response ) . PHP_EOL;
+		} catch ( Exception $e ) {
+			echo $client->getLastRequest ()->toJson () . PHP_EOL;
+			echo "Error return: " . $e->getMessage () . PHP_EOL;
+		}
+		
+		
+		try {
 			$m = "Testing: getReadersFeed";
 			echo PHP_EOL . str_repeat("*", strlen($m) + 2) . PHP_EOL;
 			echo $m . PHP_EOL;
