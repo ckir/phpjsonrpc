@@ -21,3 +21,7 @@ Installation on Heroku
 heroku config:set BUILDPACK_URL=https://github.com/iphoting/heroku-buildpack-php-tyler
 
 3. Upload this repo to heroku and you are good to go.
+
+Pull Requests
+=============
+Are very wellcome. Please contribute something that you don't want to rewrite again.
