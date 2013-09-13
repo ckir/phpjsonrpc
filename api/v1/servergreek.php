@@ -1,13 +1,9 @@
 <?php
 require_once 'startup.php';
-// $a = implode(" ", \Rpc\Greek\Helpers\GrHelpers::$omegaL);
-// $a = mb_convert_case ( $a, MB_CASE_UPPER, "UTF-8" );
-// $a = explode(' ', $a);
-// $b = "";
-// foreach ($a as $value) {
-// 	$b = $b . "'$value', ";
-// }
-
+$m = get_class_methods ( new apiv1greek () );
+$m1 = implode ( ",", $m );
+asort ( $m );
+$m2 = implode ( ",", $m );
 /**
  * This is the main entry point for the Greek related methods of the api.
  * In case of error, methods in this class should throw the appropriate type of exception.
@@ -19,6 +15,22 @@ require_once 'startup.php';
  * @throws \Zend\Json\Server\Exception\RuntimeException
  */
 class apiv1greek {
+	
+	/**
+	 * Converts a greek string to greeglish.
+	 *
+	 * @param string $text
+	 *        	The greek text
+	 * @param bool $stop_one
+	 *        	If true removes one letter words
+	 * @param bool $stop_two
+	 *        	If true removes two letter words
+	 * @access public
+	 */
+	public function getGreekGreeglish($text, $stop_one = false, $stop_two = false) {
+		$response = Rpc\Greek\Helpers\GrHelpers::gr_greeglish ( $text, $stop_one, $stop_two );
+		return $response;
+	} // function getGreekGreeglish()
 	
 	/**
 	 * Get a list of namedays for today, tomorrow and the day after tomorrow.
@@ -48,6 +60,19 @@ class apiv1greek {
 	} // function getGreekPhoneInfo()
 	
 	/**
+	 * Generates a slug (pretty url) based on a string, which is typically a page/article title
+	 *
+	 * @param string $string        	
+	 * @return string the generated slug
+	 *        
+	 */
+	public function getGreekSlug($string) {
+		$slug = new Rpc\Greek\Slugs\GreekSlugGenerator ();
+		$response = $slug->get_slug ( $string );
+		return $response;
+	} // function getGreekSlug()
+	
+	/**
 	 * Takes a list of words and returns them reduced to their stems.
 	 *
 	 * $words can be either a string or an array. If it is a string, it will
@@ -68,19 +93,6 @@ class apiv1greek {
 	} // function getGreekStemmed()
 	
 	/**
-	 * Generates a slug (pretty url) based on a string, which is typically a page/article title
-	 *
-	 * @param string $string        	
-	 * @return string the generated slug
-	 *        
-	 */
-	public function getGreekSlug($string) {
-		$slug = new Rpc\Greek\Slugs\GreekSlugGenerator ();
-		$response = $slug->get_slug ( $string );
-		return $response;
-	} // function getGreekSlug()
-	
-	/**
 	 * Simple white space tokenizer.
 	 * Break on every white space
 	 *
@@ -93,22 +105,6 @@ class apiv1greek {
 		$response = $whitespaceTokenizer->tokenize ( $content );
 		return $response;
 	} // function getGreekTokens()
-	
-	/**
-	 * Converts a greek string to greeglish.
-	 *
-	 * @param string $text
-	 *        	The greek text
-	 * @param bool $stop_one
-	 *        	If true removes one letter words
-	 * @param bool $stop_two
-	 *        	If true removes two letter words
-	 * @access public
-	 */
-	public function getGreekGreeglish($text, $stop_one = false, $stop_two = false) {
-		$response = Rpc\Greek\Helpers\GrHelpers::gr_greeglish ( $text, $stop_one, $stop_two );
-		return $response;
-	} // function getGreekGreeglish()
 } // class apiv1greek
 
 $server = new Zend\Json\Server\Server ();

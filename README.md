@@ -1,6 +1,6 @@
 phpjsonrpc
 ==========
-Trivial programming tasks exposed as JSON-RPC methods.
+Trivial programming tasks exposed as JSON-RPC methods. These methods are writen in PHP but can be used from any programming language.
 
 Working Url
 ===========
@@ -24,4 +24,4 @@ heroku config:set BUILDPACK_URL=https://github.com/iphoting/heroku-buildpack-php
 
 Pull Requests
 =============
-Are very wellcome. Please contribute something that you don't want to rewrite again.
+Are very wellcome. Please contribute something that you don't want to rewrite again. Just one limitation. Since Heroku kills any script at 30 sec, please don't send methods that take longer.

@@ -6,6 +6,10 @@ require_once 'startup.php';
 
 // $languageDetect = new \Rpc\Text\LanguageDetect\LanguageDetect ();
 // $response = $languageDetect->getLanguage ( "Επιστήμες και η Βιολογία που είναι βασική επιστήμη και δεν ξέρω πως μπορούν σε μια σειρά από ειδικότητες να απουσιάζει η Βιολογία ή να υποβαθμίζονται οι Φυσικές Επιστήμες»" );
+$m = get_class_methods ( new apiv1 () );
+$m1 = implode ( ",", $m );
+asort ( $m );
+$m2 = implode ( ",", $m );
 
 /**
  * This is the main entry point for the general methods of the api.
@@ -194,27 +198,82 @@ class apiv1 {
 	} // function getReadersUriText
 	
 	/**
-	 * Takes a list of words and returns them reduced to their stems.
+	 * Calculate the metaphone keys of strings in a array
 	 *
-	 * $words can be either a string or an array. If it is a string, it will
-	 * be split into separate words on whitespace, commas, or semicolons. If
-	 * an array, it assumes one word per element.
-	 *
-	 * @param string|array $words
-	 *        	String or array of word(s) to reduce
+	 * @param array $strings
+	 *        	Array of the input strings.
 	 * @param bool $commonwords
-	 *        	Remove common words prior to stemming
-	 * @access public
-	 * @return array List of word stems
+	 *        	Remove common words prior to calculation
+	 * @param bool $stemming
+	 *        	Apply stemming to strings prior to calculation.
+	 * @return array
 	 */
-	public function getTextStemmed($words, $commonwords = false) {
+	public function getTextMetaphone($strings, $commonwords = false, $stemming = false) {
 		try {
-			$stemmer = new Rpc\Text\Stemmer\PorterStemmer ();
-			return $stemmer->getStemmed ( $words, $commonwords );
+			$getMetaphone = new Rpc\Text\Misc\Misc ();
+			return $getMetaphone->getMetaphone ( $strings, $commonwords, $stemming );
 		} catch ( Exception $e ) {
 			throw new \Zend\Json\Server\Exception\InvalidArgumentException ( 'Service unavailable', \Zend\Json\Server\Error::ERROR_INTERNAL );
 		}
-	} // function getTextStemmed()
+	} // function getTextMetaphone()
+	
+	/**
+	 * MorphoAnalysis a string via OpenXerox.
+	 *
+	 * Supported languages are:
+	 * Czech
+	 * English
+	 * French
+	 * German
+	 * Greek
+	 * Hungarian
+	 * Italian
+	 * Polish
+	 * Russian
+	 * Turkish
+	 *
+	 * @param string $inputtext
+	 *        	The string to tokenize.
+	 * @param string $language
+	 *        	The language of the string.
+	 * @return array
+	 * @throws \Zend\Json\Exception\RuntimeException
+	 * @throws \Zend\Json\Exception\InvalidArgumentException
+	 */
+	public function getTextMorphoAnalysis($inputtext, $language) {
+		$morphoAnalysis = new Rpc\Mashups\OpenXerox\LinguisticTools ();
+		$response = $morphoAnalysis->MorphoAnalysis ( $inputtext, $language );
+		return $response;
+	} // function getTextMorphoAnalysis()
+	
+	/**
+	 * PartOfSpeechTagging a string via OpenXerox.
+	 *
+	 * Supported languages are:
+	 * Czech
+	 * English
+	 * French
+	 * German
+	 * Greek
+	 * Hungarian
+	 * Italian
+	 * Polish
+	 * Russian
+	 * Turkish
+	 *
+	 * @param string $inputtext
+	 *        	The string to tokenize.
+	 * @param string $language
+	 *        	The language of the string.
+	 * @return array
+	 * @throws \Zend\Json\Exception\RuntimeException
+	 * @throws \Zend\Json\Exception\InvalidArgumentException
+	 */
+	public function getTextPartOfSpeechTagging($inputtext, $language) {
+		$partOfSpeechTagging = new Rpc\Mashups\OpenXerox\LinguisticTools ();
+		$response = $partOfSpeechTagging->PartOfSpeechTagging ( $inputtext, $language );
+		return $response;
+	} // function getTextPartOfSpeechTagging()
 	
 	/**
 	 * Removes common words from strings.
@@ -254,24 +313,27 @@ class apiv1 {
 	} // function getTextSimilarity()
 	
 	/**
-	 * Calculate the metaphone keys of strings in a array
+	 * Takes a list of words and returns them reduced to their stems.
 	 *
-	 * @param array $strings
-	 *        	Array of the input strings.
+	 * $words can be either a string or an array. If it is a string, it will
+	 * be split into separate words on whitespace, commas, or semicolons. If
+	 * an array, it assumes one word per element.
+	 *
+	 * @param string|array $words
+	 *        	String or array of word(s) to reduce
 	 * @param bool $commonwords
-	 *        	Remove common words prior to calculation
-	 * @param bool $stemming
-	 *        	Apply stemming to strings prior to calculation.
-	 * @return array
+	 *        	Remove common words prior to stemming
+	 * @access public
+	 * @return array List of word stems
 	 */
-	public function getTextMetaphone($strings, $commonwords = false, $stemming = false) {
+	public function getTextStemmed($words, $commonwords = false) {
 		try {
-			$getMetaphone = new Rpc\Text\Misc\Misc ();
-			return $getMetaphone->getMetaphone ( $strings, $commonwords, $stemming );
+			$stemmer = new Rpc\Text\Stemmer\PorterStemmer ();
+			return $stemmer->getStemmed ( $words, $commonwords );
 		} catch ( Exception $e ) {
 			throw new \Zend\Json\Server\Exception\InvalidArgumentException ( 'Service unavailable', \Zend\Json\Server\Error::ERROR_INTERNAL );
 		}
-	} // function getTextMetaphone()
+	} // function getTextStemmed()
 	
 	/**
 	 * Tokenize a string via OpenXerox.
@@ -301,60 +363,6 @@ class apiv1 {
 		$response = $tokenization->Tokenization ( $inputtext, $language );
 		return $response;
 	} // function getTextTokenization()
-	
-	/**
-	 * MorphoAnalysis a string via OpenXerox.
-	 *
-	 * Supported languages are:
-	 * Czech
-	 * English
-	 * French
-	 * German
-	 * Greek
-	 * Hungarian
-	 * Italian
-	 * Polish
-	 * Russian
-	 * Turkish
-	 *
-	 * @param string $inputtext The string to tokenize.
-	 * @param string $language  The language of the string.
-	 * @return array
-	 * @throws \Zend\Json\Exception\RuntimeException
-	 * @throws \Zend\Json\Exception\InvalidArgumentException
-	 */
-	public function getTextMorphoAnalysis($inputtext, $language) {
-		$morphoAnalysis = new Rpc\Mashups\OpenXerox\LinguisticTools ();
-		$response = $morphoAnalysis->MorphoAnalysis ( $inputtext, $language );
-		return $response;
-	} // function getTextMorphoAnalysis()
-	
-	/**
-	 * PartOfSpeechTagging a string via OpenXerox.
-	 *
-	 * Supported languages are:
-	 * Czech
-	 * English
-	 * French
-	 * German
-	 * Greek
-	 * Hungarian
-	 * Italian
-	 * Polish
-	 * Russian
-	 * Turkish
-	 *
-	 * @param string $inputtext The string to tokenize.
-	 * @param string $language  The language of the string.
-	 * @return array
-	 * @throws \Zend\Json\Exception\RuntimeException
-	 * @throws \Zend\Json\Exception\InvalidArgumentException
-	 */
-	public function getTextPartOfSpeechTagging($inputtext, $language) {
-		$partOfSpeechTagging = new Rpc\Mashups\OpenXerox\LinguisticTools ();
-		$response = $partOfSpeechTagging->PartOfSpeechTagging ( $inputtext, $language );
-		return $response;
-	} // function getTextPartOfSpeechTagging()
 } // class apiv1
 
 $server = new Zend\Json\Server\Server ();
