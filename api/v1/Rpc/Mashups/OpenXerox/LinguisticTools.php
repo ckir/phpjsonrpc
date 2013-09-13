@@ -54,8 +54,7 @@ class LinguisticTools {
 		if ($cacheadapter) {
 			$cache->addItem ( $key, json_encode ( $result ) );
 		}
-		
-		
+			
 	} // function __construct()
 	
 	private function isValid($language) {

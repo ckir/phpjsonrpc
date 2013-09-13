@@ -1,7 +1,5 @@
 <?php
 require_once '../startup.php';
-//$tokenization = new Rpc\Mashups\OpenXerox\LinguisticTools();
-//$response = $tokenization->MorphoAnalysis("Θετική ήταν η απάντηση της Δαμασκού στη ρωσική πρόταση να παραδώσει το χημικό της οπλοστάσιο στον διεθνή έλεγχο.", "Greek");
 
 use Zend\Json\Server\Client;
 
